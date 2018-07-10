@@ -21,6 +21,13 @@ struct Color
     unsigned char r;
     unsigned char g;
     unsigned char b;
+    Color(unsigned char rp, unsigned char gp, unsigned char bp)
+    {
+        r = rp;
+        g = gp;
+        b = bp;
+    }
+    Color() {}
 };
 
 struct Color_info
@@ -37,5 +44,6 @@ struct Axis_info
     double y_min;
     double y_max;
 };
+
 
 #endif // !TYPED_GUARD_BLA

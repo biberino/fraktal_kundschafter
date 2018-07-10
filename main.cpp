@@ -37,16 +37,15 @@ void draw(Result_store *store)
         SDL_RenderDrawPoint(renderer, el.pixel.x, el.pixel.y);
     }
 
-    /**
+    SDL_RenderPresent(renderer);
+
     while (1)
     {
-        if (SDL_PollEvent(&event) && event.type == SDL_QUIT)
+        if (SDL_WaitEvent(&event) && event.type == SDL_QUIT)
             break;
+        //SDL_Delay(500);
     }
-    **/
 
-    SDL_RenderPresent(renderer);
-    SDL_Delay(5000);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -55,8 +54,8 @@ void draw(Result_store *store)
 int main(int argc, char const *argv[])
 {
 
-    res.x = 1200;
-    res.y = 1000;
+    res.x = 800;
+    res.y = 600;
 
     Workload_distributor work_dis;
     work_dis.reset(res);
@@ -66,11 +65,11 @@ int main(int argc, char const *argv[])
     Fractal_params fractal_params;
     fractal_params.store = &store;
     fractal_params.work_dis = &work_dis;
-    fractal_params.axis.x_min = -2;
-    fractal_params.axis.x_max = 1;
-    fractal_params.axis.y_min = -1;
-    fractal_params.axis.y_max = 1;
-    fractal_params.iteration_function = normal_iter;
+    fractal_params.axis.x_min = -8;
+    fractal_params.axis.x_max = 4;
+    fractal_params.axis.y_min = -4;
+    fractal_params.axis.y_max = 4;
+    fractal_params.iteration_function = julia_iter_zw;
     fractal_params.res = res;
     fractal_params.work_size = 2000;
 
