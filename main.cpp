@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <SDL2/SDL.h>
+#include <gtkmm.h>
 
 #include "types.hpp"
 #include "workload_distributor.hpp"
@@ -54,8 +55,8 @@ void draw(Result_store *store)
 int main(int argc, char const *argv[])
 {
 
-    res.x = 800;
-    res.y = 600;
+    res.x = 1024;
+    res.y = 768;
 
     Workload_distributor work_dis;
     work_dis.reset(res);
@@ -65,13 +66,19 @@ int main(int argc, char const *argv[])
     Fractal_params fractal_params;
     fractal_params.store = &store;
     fractal_params.work_dis = &work_dis;
-    fractal_params.axis.x_min = -8;
-    fractal_params.axis.x_max = 4;
-    fractal_params.axis.y_min = -4;
-    fractal_params.axis.y_max = 4;
+    fractal_params.axis.x_min = -64;
+    fractal_params.axis.x_max = 32;
+    fractal_params.axis.y_min = -32;
+    fractal_params.axis.y_max = 32;
     fractal_params.iteration_function = julia_iter_zw;
     fractal_params.res = res;
-    fractal_params.work_size = 2000;
+    fractal_params.work_size = 4000;
+
+    max_iter = 50;
+    koppl = 0.1f;
+    bailout_squared = 4.0f;
+    fractal_func = kondensator_2;
+    julia_const = std::complex<float>(-1, 0);
 
     std::vector<std::thread> threads;
     std::vector<Fractal_worker> workers;

@@ -39,6 +39,19 @@
         "mutex": "cpp",
         "ratio": "cpp",
         "thread": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "cstdarg": "cpp",
+        "cstddef": "cpp",
+        "cstring": "cpp",
+        "atomic": "cpp",
+        "strstream": "cpp",
+        "bitset": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "functional": "cpp",
+        "numeric": "cpp",
+        "cinttypes": "cpp",
+        "typeindex": "cpp",
+        "algorithm": "cpp"
     }
 }

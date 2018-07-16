@@ -28,6 +28,12 @@ struct Color
         b = bp;
     }
     Color() {}
+    Color(int hex_value)
+    {
+        r = ((hex_value >> 16) & 0xFF); // Extract the RR byte
+        g = ((hex_value >> 8) & 0xFF);  // Extract the GG byte
+        b = ((hex_value)&0xFF);
+    }
 };
 
 struct Color_info
@@ -44,6 +50,5 @@ struct Axis_info
     double y_min;
     double y_max;
 };
-
 
 #endif // !TYPED_GUARD_BLA

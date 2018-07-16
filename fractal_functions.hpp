@@ -13,9 +13,20 @@ inline std::complex<float> mandelbrot_konj(std::complex<float> z, std::complex<f
     return ((z * std::conj(z) + c));
 }
 
+inline std::complex<float> mandelbrot_3(std::complex<float> z, std::complex<float> c)
+{
+    return ((z * z * z) + c);
+}
+
 inline std::complex<float> kondensator_1(std::complex<float> z, std::complex<float> c)
 {
     return (z * c) / (z + c);
+}
+
+inline std::complex<float> kondensator_2(std::complex<float> z, std::complex<float> c)
+{
+    std::complex<float> speedup = z * z;
+    return (speedup * c) / (speedup + c);
 }
 
 inline std::complex<float> kondensator_3(std::complex<float> z, std::complex<float> c)
