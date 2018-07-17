@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread>
-#include <SDL2/SDL.h>
+//#include <SDL2/SDL.h>
 #include <gtkmm.h>
 
 #include "types.hpp"
@@ -11,73 +11,45 @@
 #include "fractal_functions.hpp"
 #include "iterations.hpp"
 
-Resolution_info res;
+//Gtk components
+#include "display.hpp"
+#include "options_panel.hpp"
 
-void wrapper(Fractal_worker *w)
+Workload_distributor work_dis;
+Result_store store;
+Display *dis;
+
+void draw_store(Result_store *store, Display *display, Resolution_info res)
 {
-    w->start();
+    display->set_data(res.x, res.y, store->get_data_pointer());
+    display->queue_draw();
 }
 
-void draw(Result_store *store)
+void calc_fractal()
 {
-    std::vector<Color_info> vec = *(store->get_vector());
+    Resolution_info res;
+    res.x = 800;
+    res.y = 600;
 
-    SDL_Event event;
-    SDL_Renderer *renderer;
-    SDL_Window *window;
-
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_CreateWindowAndRenderer(res.x, res.y, 0, &window, &renderer);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    SDL_RenderClear(renderer);
-
-    for (auto el : vec)
-    {
-        //std::cout << el.pixel.x << " || " << el.pixel.y << '\n';
-        SDL_SetRenderDrawColor(renderer, el.color.r, el.color.g, el.color.b, 255);
-        SDL_RenderDrawPoint(renderer, el.pixel.x, el.pixel.y);
-    }
-
-    SDL_RenderPresent(renderer);
-
-    while (1)
-    {
-        if (SDL_WaitEvent(&event) && event.type == SDL_QUIT)
-            break;
-        //SDL_Delay(500);
-    }
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
-
-int main(int argc, char const *argv[])
-{
-
-    res.x = 1024;
-    res.y = 768;
-
-    Workload_distributor work_dis;
     work_dis.reset(res);
-    Result_store store;
+
     store.reset(res);
 
     Fractal_params fractal_params;
     fractal_params.store = &store;
     fractal_params.work_dis = &work_dis;
-    fractal_params.axis.x_min = -64;
-    fractal_params.axis.x_max = 32;
-    fractal_params.axis.y_min = -32;
-    fractal_params.axis.y_max = 32;
-    fractal_params.iteration_function = julia_iter_zw;
+    fractal_params.axis.x_min = -2;
+    fractal_params.axis.x_max = 1;
+    fractal_params.axis.y_min = -1;
+    fractal_params.axis.y_max = 1;
+    fractal_params.iteration_function = normal_iter;
     fractal_params.res = res;
     fractal_params.work_size = 4000;
 
-    max_iter = 50;
+    max_iter = 150;
     koppl = 0.1f;
     bailout_squared = 4.0f;
-    fractal_func = kondensator_2;
+    fractal_func = mandelbrot;
     julia_const = std::complex<float>(-1, 0);
 
     std::vector<std::thread> threads;
@@ -99,8 +71,35 @@ int main(int argc, char const *argv[])
         threads[i].join();
         //store.put(&(workers[i]._col_info_vec));
     }
+    draw_store(&store, dis, res);
+}
 
-    draw(&store);
+int main(int argc, char *argv[])
+{
+
+    //display.show();
+
+    //draw(&store);
+
+    auto app = Gtk::Application::create(argc, argv, "biber.fractale.test");
+    Gtk::Window window;
+    window.set_default_size(800, 600);
+    window.set_title("Fraktal Kundschafter");
+    
+
+    Display display;
+    dis = &display;
+    Options_panel opt_panel(calc_fractal);
+
+    Gtk::Paned v_box(Gtk::ORIENTATION_HORIZONTAL);
+    
+    v_box.add1(opt_panel);
+    v_box.add2(display);
+    window.add(v_box);
+
+    window.show_all_children();
+
+    return app->run(window);
 
     return 0;
 }
