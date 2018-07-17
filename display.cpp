@@ -2,7 +2,7 @@
 
 Display::Display()
 {
-    _image = Gdk::Pixbuf::create(Gdk::COLORSPACE_RGB, 0, 8, 100, 100);
+    //_image = Gdk::Pixbuf::create(Gdk::COLORSPACE_RGB, 0, 8, 100, 100);
 }
 
 Display::~Display()

@@ -1,8 +1,7 @@
 #ifndef ITER_GUARD_FUNC
 #define ITER_GUARD_FUNC
 
-#include "types.hpp"
-#include "colors.hpp"
+
 #include <complex>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
@@ -10,40 +9,24 @@
 #include <set>
 #include <unordered_map>
 #include <cstdint>
+#include <string.h>
 
-int max_iter = 500;
-float koppl = 0.5f;
-float bailout_squared = 4.0f;
-int float_compare_precision = 5;
-std::complex<float> (*fractal_func)(std::complex<float>, std::complex<float>) = mandelbrot_3;
-std::complex<float> julia_const(-1, 0);
+#include "types.hpp"
 
-inline bool isComplexOK(std::complex<float> number)
+
+
+inline std::string float_to_string(float f)
 {
-
-    if (number.real() < std::numeric_limits<float>::max() && number.real() > (-1 * std::numeric_limits<float>::max()))
-    {
-        if (number.imag() < std::numeric_limits<float>::max() && number.imag() > (-1 * std::numeric_limits<float>::max()))
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-inline std::string float_to_string(float f, int precision)
-{
-
-    uint64_t ui;
+    uint32_t ui;
     memcpy(&ui, &f, sizeof(float));
-    return std::to_string(ui & 0xffffffffffff0000);
+    return std::to_string(ui & 0xFFFFF000);
 
-    std::stringstream stream;
-    stream << std::fixed << std::setprecision(precision) << f;
-    return stream.str();
 }
 
-inline Color normal_iter(std::complex<float> point)
+inline Color normal_iter(std::complex<float> point, int max_iter,
+                         fractal_callback fractal_func, color_callback color_func,
+                         std::complex<float> julia_const,
+                         float bailout_squared, float koppl)
 {
 
     std::complex<float> z(0, 0);
@@ -54,8 +37,8 @@ inline Color normal_iter(std::complex<float> point)
     for (size_t j = 0; j < max_iter; j++)
     {
 
-        std::string z_string = float_to_string(z.real(), float_compare_precision) +
-                               float_to_string(z.imag(), float_compare_precision);
+        std::string z_string = float_to_string(z.real()) +
+                               float_to_string(z.imag());
 
         if (hash_table.find(z_string) != hash_table.end())
         {
@@ -63,7 +46,7 @@ inline Color normal_iter(std::complex<float> point)
             int jump_counter = j - hash_table[z_string];
             //hier nach anzahl sprügne einfärben
 
-            return colorize(jump_counter, true, j, z, max_iter);
+            return color_func(jump_counter, true, j, z, max_iter);
         }
 
         hash_table[z_string] = j;
@@ -72,13 +55,14 @@ inline Color normal_iter(std::complex<float> point)
 
         if (((z.real() * z.real()) + (z.imag() * z.imag())) > bailout_squared)
         {
-            return colorize(0, false, j, z, max_iter);
+            return color_func(0, false, j, z, max_iter);
         }
     }
 
-    return colorize(0, true, max_iter, z, max_iter);
+    return color_func(0, true, max_iter, z, max_iter);
 }
 
+/**
 inline Color julia_iter(std::complex<float> point)
 {
 
@@ -204,5 +188,7 @@ inline Color julia_iter_zw(std::complex<float> point)
 
     return colorize_zw(0, true, max_iter, z1, z2, max_iter);
 }
+
+**/
 
 #endif // !FRAC_FUN_GUARD_!1212

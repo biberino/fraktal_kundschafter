@@ -12,9 +12,15 @@ struct Fractal_params
   Axis_info axis;
   Resolution_info res;
   int work_size;
-  Color (*iteration_function)(std::complex<float>); // die Iteration >
+  iter_callback iteration_function; // die Iteration >
+  color_callback color_function;
+  fractal_callback fractal_function;
   Workload_distributor *work_dis;
   Result_store *store;
+  int max_iter;
+  float koppl;
+  float bailout_squared;
+  std::complex<float> julia_const;
 };
 
 class Fractal_worker

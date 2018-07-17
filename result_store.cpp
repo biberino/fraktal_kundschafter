@@ -7,6 +7,7 @@ Result_store::Result_store()
 
 Result_store::~Result_store()
 {
+    std::cout << "DESTRUCTOR" << '\n';
     if (_data != nullptr)
     {
         delete[] _data;
@@ -15,6 +16,7 @@ Result_store::~Result_store()
 
 void Result_store::reset(Resolution_info res)
 {
+    std::cout << "RESET" << '\n';
     _res = res;
     //_color_vec.clear();
     if (_data != nullptr)

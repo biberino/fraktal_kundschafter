@@ -41,7 +41,13 @@ void Fractal_worker::start()
         {
             Color_info color;
             color.pixel = p;
-            color.color = _params.iteration_function(XY_to_complex(p));
+            color.color = _params.iteration_function(XY_to_complex(p),
+                                                     _params.max_iter,
+                                                     _params.fractal_function,
+                                                     _params.color_function,
+                                                     _params.julia_const,
+                                                     _params.bailout_squared,
+                                                     _params.koppl);
             colors.push_back(color);
         }
         _params.store->put(&colors);

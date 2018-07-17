@@ -1,5 +1,5 @@
-#ifndef COLORS_GUARD
-#define COLORS_GUARD
+#ifndef COLORS_GUARD_123
+#define COLORS_GUARD_123
 
 #include "types.hpp"
 

@@ -51,4 +51,11 @@ struct Axis_info
     double y_max;
 };
 
+using color_callback = Color (*)(int, bool, int, std::complex<float>, int);
+using fractal_callback = std::complex<float> (*)(std::complex<float>, std::complex<float>);
+using iter_callback = Color (*)(std::complex<float>, int,
+                                fractal_callback, color_callback,
+                                std::complex<float>,
+                                float, float);
+
 #endif // !TYPED_GUARD_BLA

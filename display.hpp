@@ -1,5 +1,5 @@
-#ifndef DISPLAY_GUARD
-#define DISPLAY_GUARD
+#ifndef DISPLAY_GUARD_123
+#define DISPLAY_GUARD_123
 
 #include <gtkmm/drawingarea.h>
 //#include <gdkmm/pixbuf.h>
