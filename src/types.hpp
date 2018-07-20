@@ -51,6 +51,13 @@ struct Axis_info
     double y_max;
 };
 
+struct Parameters_Info
+{
+    int max_iter;
+    float koppl;
+    Resolution_info res;
+};
+
 using color_callback = Color (*)(int, bool, int, std::complex<float>, int);
 using fractal_callback = std::complex<float> (*)(std::complex<float>, std::complex<float>);
 using iter_callback = Color (*)(std::complex<float>, int,

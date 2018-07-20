@@ -1,13 +1,14 @@
 #include "range-panel.hpp"
+#include <iostream>
 
 Range_panel::Range_panel()
 {
     //add(_grid_main);
 
-    _lbl_x_min.set_text("X MIN:");
-    _lbl_x_max.set_text("X MAX:");
-    _lbl_y_min.set_text("Y MIN:");
-    _lbl_y_max.set_text("Y MAX:");
+    _lbl_x_min.set_text("X MIN:   ");
+    _lbl_x_max.set_text("X MAX:   ");
+    _lbl_y_min.set_text("Y MIN:   ");
+    _lbl_y_max.set_text("Y MAX:   ");
 
     attach(_lbl_x_min, 0, 0, 1, 1);
     attach(_lbl_x_max, 0, 1, 1, 1);
@@ -19,9 +20,43 @@ Range_panel::Range_panel()
     attach(_txt_y_min, 1, 2, 1, 1);
     attach(_txt_y_max, 1, 3, 1, 1);
 
+    /**DEFAULT **/
+    _txt_x_min.set_text("-2");
+    _txt_x_max.set_text("1");
+    _txt_y_min.set_text("-1");
+    _txt_y_max.set_text("1");
+
     show_all_children();
 }
 
 Range_panel::~Range_panel()
 {
+}
+
+Axis_info Range_panel::get_data()
+{
+
+    Axis_info axis;
+
+    try
+    {
+        axis.x_min = std::stod(_txt_x_min.get_text());
+        axis.x_max = std::stod(_txt_x_max.get_text());
+        axis.y_min = std::stod(_txt_y_min.get_text());
+        axis.y_max = std::stod(_txt_y_max.get_text());
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    return axis;
+}
+
+void Range_panel::set_data(Axis_info axis)
+{
+    _txt_x_min.set_text(std::to_string(axis.x_min));
+    _txt_x_max.set_text(std::to_string(axis.x_max));
+    _txt_y_min.set_text(std::to_string(axis.y_min));
+    _txt_y_max.set_text(std::to_string(axis.y_max));
 }

@@ -16,7 +16,7 @@ Result_store::~Result_store()
 
 void Result_store::reset(Resolution_info res)
 {
-    std::cout << "RESET" << '\n';
+    std::cout << "RESET:" << res.x << "  " << res.y << '\n';
     _res = res;
     //_color_vec.clear();
     if (_data != nullptr)

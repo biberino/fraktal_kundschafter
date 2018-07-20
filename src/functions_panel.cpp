@@ -2,9 +2,9 @@
 
 Functions_panel::Functions_panel(/* args */)
 {
-    _lbl_fractal.set_text("Fraktal:");
-    _lbl_iterations.set_text("Iteration:");
-    _lbl_color.set_text("Farbe:");
+    _lbl_fractal.set_text("Fraktal:   ");
+    _lbl_iterations.set_text("Iteration:   ");
+    _lbl_color.set_text("Farbe:   ");
 
     attach(_lbl_fractal, 0, 0, 1, 1);
     attach(_lbl_iterations, 0, 1, 1, 1);

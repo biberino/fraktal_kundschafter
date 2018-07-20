@@ -19,7 +19,7 @@ SRCEXT := cpp
 # Flags für linker
 LIBS := -lpthread `pkg-config gtkmm-3.0 --libs`
 # Flags für dem Compiler
-CFLAGS := -std=c++11 -Ofast -ffast-math `pkg-config gtkmm-3.0 --cflags`
+CFLAGS := -std=c++11 -Ofast -ffast-math -g `pkg-config gtkmm-3.0 --cflags`
 
 # Pfad und Name der Binary
 BIN_NAME := bin/fraktal_kundschafter

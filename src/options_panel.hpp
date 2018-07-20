@@ -22,11 +22,10 @@ private:
   Parameters_panel _params_panel;
 
   calculation_params _calc_params;
-  Resolution_info _res;
   Calculation_handler *_calc_handler;
   Display *_display;
 
-  void set_default_params();
+  void read_params();
 
 protected:
   void on_button_draw_clicked();
