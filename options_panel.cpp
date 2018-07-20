@@ -4,18 +4,33 @@
 #include "options_panel.hpp"
 #include "fractal_functions.hpp"
 
-
-
 Options_panel::Options_panel(Calculation_handler *calc_handler, Display *display)
+    : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL)
 {
-    _button_draw.add_label("Zeichnen");
 
+    /** Beginn GUI **/
+    _button_draw.add_label("Zeichnen");
+    _button_zoom_out.add_label("Rauszoomen");
+
+    _sep_1.set_size_request(10,10);
+
+    _grid_main.attach(_range_panel, 0, 0, 1, 1);
+    _grid_main.attach(_sep_1, 0, 1, 2, 1);
+    _grid_main.attach(_button_zoom_out, 0, 2, 1, 1);
+    _grid_main.attach(_button_draw, 0, 3, 1, 1);
+
+    add(_grid_main);
+    show_all_children();
+
+    set_size_request(250, 150);
+
+    //events
     _button_draw.signal_clicked()
         .connect(sigc::mem_fun(*this,
                                &Options_panel::on_button_draw_clicked));
 
-    add(_button_draw);
-    show_all_children();
+    /** Ende GUI **/
+
     _calc_handler = calc_handler;
     _display = display;
     set_default_params();

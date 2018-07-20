@@ -5,13 +5,19 @@
 
 #include "calculation_handler.hpp"
 #include "display.hpp"
+#include "range-panel.hpp"
 
 
 
 class Options_panel : public Gtk::ScrolledWindow
 {
   private:
+
+    Gtk::Grid _grid_main;
+    Gtk::Button _button_zoom_out;
     Gtk::Button _button_draw;
+    Range_panel _range_panel;
+    Gtk::Separator _sep_1;
 
 
     calculation_params _calc_params;

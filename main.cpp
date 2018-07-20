@@ -30,11 +30,11 @@ int main(int argc, char *argv[])
     Display display;
     Options_panel opt_panel(&calc_handler, &display);
 
-    Gtk::Paned v_box(Gtk::ORIENTATION_HORIZONTAL);
+    Gtk::Paned h_box(Gtk::ORIENTATION_HORIZONTAL);
 
-    v_box.add1(opt_panel);
-    v_box.add2(display);
-    window.add(v_box);
+    h_box.add1(opt_panel);
+    h_box.add2(display);
+    window.add(h_box);
 
     window.show_all_children();
 
