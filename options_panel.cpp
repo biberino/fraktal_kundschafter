@@ -11,13 +11,16 @@ Options_panel::Options_panel(Calculation_handler *calc_handler, Display *display
     /** Beginn GUI **/
     _button_draw.add_label("Zeichnen");
     _button_zoom_out.add_label("Rauszoomen");
+    _button_zoom_reset.add_label("Reset Zoom");
 
     _sep_1.set_size_request(10,10);
 
-    _grid_main.attach(_range_panel, 0, 0, 1, 1);
+    _grid_main.attach(_range_panel, 0, 0, 2, 1);
     _grid_main.attach(_sep_1, 0, 1, 2, 1);
-    _grid_main.attach(_button_zoom_out, 0, 2, 1, 1);
-    _grid_main.attach(_button_draw, 0, 3, 1, 1);
+    _grid_main.attach(_func_panel, 0, 2, 2, 1);
+    _grid_main.attach(_button_zoom_reset, 0, 3, 1, 1);
+    _grid_main.attach(_button_zoom_out, 1, 3, 1, 1);
+    _grid_main.attach(_button_draw, 0, 4, 2, 1);
 
     add(_grid_main);
     show_all_children();
