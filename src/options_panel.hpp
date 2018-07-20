@@ -7,6 +7,7 @@
 #include "display.hpp"
 #include "range-panel.hpp"
 #include "functions_panel.hpp"
+#include "parameters_panel.hpp"
 
 class Options_panel : public Gtk::ScrolledWindow
 {
@@ -18,6 +19,7 @@ private:
   Range_panel _range_panel;
   Gtk::Separator _sep_1;
   Functions_panel _func_panel;
+  Parameters_panel _params_panel;
 
   calculation_params _calc_params;
   Resolution_info _res;
