@@ -48,6 +48,19 @@ inline Color colorize(int jumps, bool in_set, int num_itertaions,
     return Color(0, 0, 255);
 }
 
+
+inline Color colorize_simple(int jumps, bool in_set, int num_itertaions,
+                      std::complex<float> end_point, int max_iter)
+{
+
+    if (!in_set)
+    {
+        return Color(0, 0, 0);
+    }
+
+    return Color(0, 230, 105);
+}
+
 inline Color colorize_zw(int jumps, bool in_set, int num_itertaions,
                          std::complex<float> end_point_1,
                          std::complex<float> end_point_2, int max_iter)

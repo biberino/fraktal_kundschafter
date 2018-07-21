@@ -1,6 +1,7 @@
 #ifndef CAL_GUARD_1212
 #define CAL_GUARD_1212
 
+#include <gtkmm/progressbar.h>
 #include "workload_distributor.hpp"
 #include "result_store.hpp"
 #include "fractal_worker.hpp"
@@ -15,7 +16,7 @@ struct calculation_params
     Resolution_info resolution;
     int work_size;
     int max_iter;
-    int koppl;
+    float koppl;
     float bailout_squared;
     fractal_callback fractal_function;
     color_callback color_function;
@@ -30,7 +31,7 @@ class Calculation_handler
     Result_store store;
 
   public:
-    Calculation_handler();
+    Calculation_handler(Gtk::ProgressBar *progress);
     ~Calculation_handler();
     void set_params(calculation_params params);
     void calculate();

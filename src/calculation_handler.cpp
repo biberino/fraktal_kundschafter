@@ -1,7 +1,8 @@
 #include <thread>
 #include "calculation_handler.hpp"
 
-Calculation_handler::Calculation_handler()
+Calculation_handler::Calculation_handler(Gtk::ProgressBar *progress)
+    : store(progress)
 {
 }
 
@@ -34,6 +35,7 @@ void Calculation_handler::calculate()
     fractal_params.fractal_function = _params.fractal_function;
     fractal_params.bailout_squared = _params.bailout_squared;
     fractal_params.julia_const = _params.julia_const;
+    fractal_params.koppl = _params.koppl;
 
     std::vector<std::thread> threads;
     std::vector<Fractal_worker> workers;

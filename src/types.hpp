@@ -3,6 +3,7 @@
 
 #include <complex>
 #include <vector>
+#include <string>
 
 struct Resolution_info
 {
@@ -64,5 +65,54 @@ using iter_callback = Color (*)(std::complex<float>, int,
                                 fractal_callback, color_callback,
                                 std::complex<float>,
                                 float, float);
+
+struct Combo_entry_fractal
+{
+    std::string description;
+    std::string formula;
+    fractal_callback callback;
+    Combo_entry_fractal(std::string d, std::string f,
+                        fractal_callback c)
+    {
+        description = d;
+        formula = f;
+        callback = c;
+    }
+};
+
+struct Combo_entry_iter
+{
+    std::string description;
+    std::string short_description;
+    iter_callback callback;
+    Combo_entry_iter(std::string d, std::string f,
+                     iter_callback c)
+    {
+        description = d;
+        short_description = f;
+        callback = c;
+    }
+};
+
+struct Combo_entry_color
+{
+    std::string description;
+    std::string short_description;
+    color_callback callback;
+    Combo_entry_color(std::string d, std::string f,
+                      color_callback c)
+    {
+        description = d;
+        short_description = f;
+        callback = c;
+    }
+};
+
+struct Combo_entries
+{
+    std::vector<Combo_entry_fractal> fractal_entries;
+    std::vector<Combo_entry_iter> iter_entries;
+    std::vector<Combo_entry_color> color_entries;
+};
 
 #endif // !TYPED_GUARD_BLA

@@ -1,11 +1,10 @@
 #include <iostream>
-#include "colors.hpp"
-#include "iterations.hpp"
-#include "options_panel.hpp"
-#include "fractal_functions.hpp"
 
-Options_panel::Options_panel(Calculation_handler *calc_handler, Display *display)
-    : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL)
+#include "options_panel.hpp"
+
+Options_panel::Options_panel(Display *display, const Combo_entries &combo_entries)
+    : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL),
+      _func_panel(combo_entries)
 {
 
     /** Beginn GUI **/
@@ -22,6 +21,7 @@ Options_panel::Options_panel(Calculation_handler *calc_handler, Display *display
     _grid_main.attach(_button_zoom_reset, 0, 4, 1, 1);
     _grid_main.attach(_button_zoom_out, 1, 4, 1, 1);
     _grid_main.attach(_button_draw, 0, 5, 2, 1);
+    _grid_main.attach(_progress_bar, 0, 6, 2, 1);
 
     add(_grid_main);
     show_all_children();
@@ -35,12 +35,13 @@ Options_panel::Options_panel(Calculation_handler *calc_handler, Display *display
 
     /** Ende GUI **/
 
-    _calc_handler = calc_handler;
     _display = display;
+    _calc_handler = new Calculation_handler(&_progress_bar);
 }
 
 Options_panel::~Options_panel()
 {
+    delete _calc_handler;
 }
 
 void Options_panel::read_params()
@@ -48,9 +49,9 @@ void Options_panel::read_params()
     Parameters_Info p = _params_panel.get_data();
     Axis_info a = _range_panel.get_data();
 
-    _calc_params.iteration_function = normal_iter;
-    _calc_params.color_function = colorize;
-    _calc_params.fractal_function = mandelbrot;
+    _calc_params.iteration_function = _func_panel.get_iter_callback();
+    _calc_params.color_function = _func_panel.get_color_callback();
+    _calc_params.fractal_function = _func_panel.get_fractal_callback();
 
     _calc_params.bailout_squared = 4.0f;
     _calc_params.julia_const = std::complex<float>(-1, 0);
@@ -67,6 +68,12 @@ void Options_panel::read_params()
 void Options_panel::on_button_draw_clicked()
 {
     std::cout << "CLICKED!!!" << '\n';
+    _calc_thread = std::thread(&Options_panel::start_calculation, this);
+    _calc_thread.detach();
+}
+
+void Options_panel::start_calculation()
+{
     read_params();
     _calc_handler->set_params(_calc_params);
     _calc_handler->calculate(); //TODO: this blocks, maybe new thread + progressbar

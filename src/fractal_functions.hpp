@@ -13,6 +13,11 @@ inline std::complex<float> mandelbrot_konj(std::complex<float> z, std::complex<f
     return ((z * std::conj(z) + c));
 }
 
+inline std::complex<float> mandelbrot_konj_minus_1(std::complex<float> z, std::complex<float> c)
+{
+    return (std::pow(z, std::conj(z)) - std::complex<float>(1, 0));
+}
+
 inline std::complex<float> mandelbrot_3(std::complex<float> z, std::complex<float> c)
 {
     return ((z * z * z) + c);

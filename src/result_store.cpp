@@ -1,8 +1,9 @@
 #include <iostream>
 #include "result_store.hpp"
 
-Result_store::Result_store()
+Result_store::Result_store(Gtk::ProgressBar *progress)
 {
+    _progress = progress;
 }
 
 Result_store::~Result_store()
@@ -24,6 +25,8 @@ void Result_store::reset(Resolution_info res)
         delete[] _data;
     }
     _data = new unsigned char[res.x * res.y * 3];
+    _num_points = res.x * res.y;
+    _num_points_calculated = 0;
 }
 
 void Result_store::put(std::vector<Color_info> *vec)
@@ -38,6 +41,10 @@ void Result_store::put(std::vector<Color_info> *vec)
         // _color_vec.push_back(el);
         //std::cout << "Inserted:" << el.pixel.x << "|" << el.pixel.y << " --> " << el.color.dummy << '\n';
     }
+    _num_points_calculated += vec->size();
+    double buffer = (float)_num_points_calculated / (float)_num_points;
+    std::cout << buffer << '\n';
+    //_progress->set_fraction(buffer);
 }
 
 unsigned char *Result_store::get_data_pointer()

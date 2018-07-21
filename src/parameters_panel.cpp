@@ -46,7 +46,6 @@ Parameters_Info Parameters_panel::get_data()
     {
         std::cerr << e.what() << '\n';
     }
-
     return info;
 }
 void Parameters_panel::set_data(Parameters_Info info)
