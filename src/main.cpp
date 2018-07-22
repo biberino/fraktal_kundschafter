@@ -38,6 +38,26 @@ Combo_entries setup_combo_entries()
         "z = (z*c) / (z+c)",
         kondensator_1));
 
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Kondensator",
+        "z = ((z*c) / (z+c)) -1",
+        kondensator_2));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Kondensator",
+        "z = ((z*c) / (z+c)) +1",
+        kondensator_3));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Kondensator",
+        "z = ((z*z*c) / (z*z+c))",
+        kondensator_4));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Kondensator",
+        "z = ((z*(z*)*c) / (z*(z*)+c))",
+        kondensator_5));
+
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
@@ -52,6 +72,11 @@ Combo_entries setup_combo_entries()
 
     retVal.iter_entries.push_back(Combo_entry_iter(
         "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht in der Menge + Prüft auf Zyklen",
+        "Standard Iteration ZWILLING ohne Punktverfolgung",
+        normal_iter_zw_no_tracking));
+
+    retVal.iter_entries.push_back(Combo_entry_iter(
+        "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht in der Menge + Prüft auf Zyklen",
         "Julia Iteration",
         julia_iter));
 
@@ -60,10 +85,15 @@ Combo_entries setup_combo_entries()
         "Julia Iteration Zwilling",
         julia_iter_zw));
 
-        retVal.iter_entries.push_back(Combo_entry_iter(
+    retVal.iter_entries.push_back(Combo_entry_iter(
         "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht in der Menge + Prüft auf Zyklen",
         "Julia Iteration Zwilling keine Punktverfolgung",
         julia_iter_zw_no_tracking));
+
+    retVal.iter_entries.push_back(Combo_entry_iter(
+        "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht in der Menge + Prüft auf Zyklen",
+        "Julia Iteration Zwilling Test keine Punktverfolgung",
+        julia_iter_test_zw_no_tracking));
 
     /**Farben **/
 
@@ -77,6 +107,11 @@ Combo_entries setup_combo_entries()
         "Simple Färbung",
         colorize_simple));
 
+    retVal.color_entries.push_back(Combo_entry_color(
+        "Färbt nach Abstand, linearer Gradient",
+        "Abstand linear",
+        colorize_distance_linear_gradient));
+
     return retVal;
 }
 
@@ -86,8 +121,6 @@ int main(int argc, char *argv[])
     //display.show();
 
     //draw(&store);
-
-    
 
     auto app = Gtk::Application::create(argc, argv, "biber.fractale.test");
     Gtk::Window window;

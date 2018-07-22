@@ -15,12 +15,12 @@ void Fractal_worker::set_params(Fractal_params params)
     _y_diff = params.axis.y_max - params.axis.y_min;
 }
 
-inline std::complex<float> Fractal_worker::XY_to_complex(Pixel pixel)
+inline complex_type Fractal_worker::XY_to_complex(Pixel pixel)
 {
-    float ca = (float)pixel.x * (_x_diff / (float)_params.res.x) + (float)_params.axis.x_min;
-    float cb = ((-1.0f * (float)pixel.y + (float)_params.res.y) * ((float)_y_diff / (float)_params.res.y) + (float)_params.axis.y_min);
+    double ca = (double)pixel.x * (_x_diff / (double)_params.res.x) + (double)_params.axis.x_min;
+    double cb = ((-1.0f * (double)pixel.y + (double)_params.res.y) * ((double)_y_diff / (double)_params.res.y) + (double)_params.axis.y_min);
 
-    return std::complex<float>(ca, cb);
+    return complex_type(ca, cb);
 }
 
 void Fractal_worker::start()

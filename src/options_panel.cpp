@@ -33,6 +33,14 @@ Options_panel::Options_panel(Display *display, const Combo_entries &combo_entrie
         .connect(sigc::mem_fun(*this,
                                &Options_panel::on_button_draw_clicked));
 
+    _button_zoom_reset.signal_clicked()
+        .connect(sigc::mem_fun(*this,
+                               &Options_panel::on_button_reset_zoom_click));
+
+    _button_zoom_out.signal_clicked()
+        .connect(sigc::mem_fun(*this,
+                               &Options_panel::on_button_zoom_out_click));
+
     /** Ende GUI **/
 
     _display = display;
@@ -54,7 +62,7 @@ void Options_panel::read_params()
     _calc_params.fractal_function = _func_panel.get_fractal_callback();
 
     _calc_params.bailout_squared = 4.0f;
-    _calc_params.julia_const = std::complex<float>(-1, 0);
+    _calc_params.julia_const = complex_type(-1, 0);
     _calc_params.resolution = p.res;
     _calc_params.work_size = 4000;
     _calc_params.max_iter = p.max_iter;
@@ -79,4 +87,24 @@ void Options_panel::start_calculation()
     _calc_handler->calculate(); //TODO: this blocks, maybe new thread + progressbar
     _display->set_data(_calc_params.resolution.x, _calc_params.resolution.y, _calc_handler->get_result_pointer());
     _display->queue_draw();
+}
+
+void Options_panel::on_button_zoom_out_click()
+{
+    Axis_info a = _range_panel.get_data();
+    a.x_min *= 2;
+    a.x_max *= 2;
+    a.y_min *= 2;
+    a.y_max *= 2;
+    _range_panel.set_data(a);
+}
+
+void Options_panel::on_button_reset_zoom_click()
+{
+    Axis_info a;
+    a.x_min = -2.0;
+    a.x_max = 1.0;
+    a.y_min = -1.0;
+    a.y_max = 1.0;
+    _range_panel.set_data(a);
 }

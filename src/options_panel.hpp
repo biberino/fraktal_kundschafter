@@ -35,11 +35,16 @@ private:
 
   Calculation_handler *_calc_handler;
 
+
+
+
   void read_params();
   void start_calculation();
 
 protected:
   void on_button_draw_clicked();
+  void on_button_reset_zoom_click();
+  void on_button_zoom_out_click();
 
 public:
   Options_panel(Display *display, const Combo_entries& combo_entries);

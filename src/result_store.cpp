@@ -42,7 +42,7 @@ void Result_store::put(std::vector<Color_info> *vec)
         //std::cout << "Inserted:" << el.pixel.x << "|" << el.pixel.y << " --> " << el.color.dummy << '\n';
     }
     _num_points_calculated += vec->size();
-    double buffer = (float)_num_points_calculated / (float)_num_points;
+    double buffer = (double)_num_points_calculated / (double)_num_points;
     std::cout << buffer << '\n';
     //_progress->set_fraction(buffer);
 }

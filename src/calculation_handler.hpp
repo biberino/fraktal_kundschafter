@@ -2,6 +2,7 @@
 #define CAL_GUARD_1212
 
 #include <gtkmm/progressbar.h>
+#include "types.hpp"
 #include "workload_distributor.hpp"
 #include "result_store.hpp"
 #include "fractal_worker.hpp"
@@ -16,11 +17,11 @@ struct calculation_params
     Resolution_info resolution;
     int work_size;
     int max_iter;
-    float koppl;
-    float bailout_squared;
+    double koppl;
+    double bailout_squared;
     fractal_callback fractal_function;
     color_callback color_function;
-    std::complex<float> julia_const;
+    complex_type julia_const;
 };
 
 class Calculation_handler

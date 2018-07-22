@@ -2,41 +2,52 @@
 #define FRAC_FUN_GUARD_1212
 
 #include <complex>
+#include "types.hpp"
 
-inline std::complex<float> mandelbrot(std::complex<float> z, std::complex<float> c)
+inline complex_type mandelbrot(complex_type z, complex_type c)
 {
     return ((z * z) + c);
 }
 
-inline std::complex<float> mandelbrot_konj(std::complex<float> z, std::complex<float> c)
+inline complex_type mandelbrot_konj(complex_type z, complex_type c)
 {
     return ((z * std::conj(z) + c));
 }
 
-inline std::complex<float> mandelbrot_konj_minus_1(std::complex<float> z, std::complex<float> c)
+inline complex_type mandelbrot_konj_minus_1(complex_type z, complex_type c)
 {
-    return (std::pow(z, std::conj(z)) - std::complex<float>(1, 0));
+    return (std::pow(z, std::conj(z)) - complex_type(1, 0));
 }
 
-inline std::complex<float> mandelbrot_3(std::complex<float> z, std::complex<float> c)
+inline complex_type mandelbrot_3(complex_type z, complex_type c)
 {
     return ((z * z * z) + c);
 }
 
-inline std::complex<float> kondensator_1(std::complex<float> z, std::complex<float> c)
+inline complex_type kondensator_1(complex_type z, complex_type c)
 {
     return (z * c) / (z + c);
 }
 
-inline std::complex<float> kondensator_2(std::complex<float> z, std::complex<float> c)
+inline complex_type kondensator_2(complex_type z, complex_type c)
 {
-    std::complex<float> speedup = z * z;
+    return ((z * c) / (z + c)) - complex_type(1, 0);
+}
+
+inline complex_type kondensator_3(complex_type z, complex_type c)
+{
+    return ((z * c) / (z + c)) + complex_type(1, 0);
+}
+
+inline complex_type kondensator_4(complex_type z, complex_type c)
+{
+    complex_type speedup = z * z;
     return (speedup * c) / (speedup + c);
 }
 
-inline std::complex<float> kondensator_3(std::complex<float> z, std::complex<float> c)
+inline complex_type kondensator_5(complex_type z, complex_type c)
 {
-    std::complex<float> speedup = z * std::conj(z);
+    complex_type speedup = z * std::conj(z);
     return (speedup * c) / (speedup + c);
 }
 

@@ -16,29 +16,29 @@
 std::string debug;
 bool debug_active = true;
 
-inline std::string float_to_string(float f)
+inline std::string double_to_string(double f)
 {
-    uint32_t ui;
-    memcpy(&ui, &f, sizeof(float));
-    return std::to_string(ui & 0xFFFFF000);
+    uint64_t ui;
+    memcpy(&ui, &f, sizeof(double));
+    return std::to_string(ui & 0xFFFFFFFFFF000000);
 }
 
-inline Color normal_iter(std::complex<float> point, int max_iter,
+inline Color normal_iter(complex_type point, int max_iter,
                          fractal_callback fractal_func, color_callback color_func,
-                         std::complex<float> julia_const,
-                         float bailout_squared, float koppl)
+                         complex_type julia_const,
+                         double bailout_squared, double koppl)
 {
 
-    std::complex<float> z(0, 0);
-    std::complex<float> c = point;
+    complex_type z(0, 0);
+    complex_type c = point;
     //für schnelle lookups
     std::unordered_map<std::string, int> hash_table;
 
     for (size_t j = 0; j < max_iter; j++)
     {
 
-        std::string z_string = float_to_string(z.real()) +
-                               float_to_string(z.imag());
+        std::string z_string = double_to_string(z.real()) +
+                               double_to_string(z.imag());
 
         if (hash_table.find(z_string) != hash_table.end())
         {
@@ -46,7 +46,7 @@ inline Color normal_iter(std::complex<float> point, int max_iter,
             int jump_counter = j - hash_table[z_string];
             //hier nach anzahl sprügne einfärben
 
-            return color_func(jump_counter, true, j, z, max_iter);
+            return color_func(jump_counter, true, j, z, complex_type(0, 0), max_iter, sqrt(bailout_squared));
         }
 
         hash_table[z_string] = j;
@@ -55,29 +55,29 @@ inline Color normal_iter(std::complex<float> point, int max_iter,
 
         if (((z.real() * z.real()) + (z.imag() * z.imag())) > bailout_squared)
         {
-            return color_func(0, false, j, z, max_iter);
+            return color_func(0, false, j, z, complex_type(0, 0), max_iter, sqrt(bailout_squared));
         }
     }
 
-    return color_func(0, true, max_iter, z, max_iter);
+    return color_func(0, true, max_iter, z, complex_type(0, 0), max_iter, sqrt(bailout_squared));
 }
 
-inline Color julia_iter(std::complex<float> point, int max_iter,
+inline Color julia_iter(complex_type point, int max_iter,
                         fractal_callback fractal_func, color_callback color_func,
-                        std::complex<float> julia_const,
-                        float bailout_squared, float koppl)
+                        complex_type julia_const,
+                        double bailout_squared, double koppl)
 {
 
-    std::complex<float> z = point;
-    std::complex<float> c = julia_const;
+    complex_type z = point;
+    complex_type c = julia_const;
     //für schnelle lookups
     std::unordered_map<std::string, int> hash_table;
 
     for (size_t j = 0; j < max_iter; j++)
     {
 
-        std::string z_string = float_to_string(z.real()) +
-                               float_to_string(z.imag());
+        std::string z_string = double_to_string(z.real()) +
+                               double_to_string(z.imag());
 
         if (hash_table.find(z_string) != hash_table.end())
         {
@@ -85,7 +85,7 @@ inline Color julia_iter(std::complex<float> point, int max_iter,
             int jump_counter = j - hash_table[z_string];
             //hier nach anzahl sprügne einfärben
 
-            return color_func(jump_counter, true, j, z, max_iter);
+            return color_func(jump_counter, true, j, z, complex_type(0, 0), max_iter, sqrt(bailout_squared));
         }
 
         hash_table[z_string] = j;
@@ -94,17 +94,17 @@ inline Color julia_iter(std::complex<float> point, int max_iter,
 
         if (((z.real() * z.real()) + (z.imag() * z.imag())) > bailout_squared)
         {
-            return color_func(0, false, j, z, max_iter);
+            return color_func(0, false, j, z, complex_type(0, 0), max_iter, sqrt(bailout_squared));
         }
     }
 
-    return color_func(0, true, max_iter, z, max_iter);
+    return color_func(0, true, max_iter, z, complex_type(0, 0), max_iter, sqrt(bailout_squared));
 }
 
-inline Color normal_iter_zw(std::complex<float> point, int max_iter,
+inline Color normal_iter_zw(complex_type point, int max_iter,
                             fractal_callback fractal_func, color_callback color_func,
-                            std::complex<float> julia_const,
-                            float bailout_squared, float koppl)
+                            complex_type julia_const,
+                            double bailout_squared, double koppl)
 {
     if (debug_active)
     {
@@ -112,32 +112,32 @@ inline Color normal_iter_zw(std::complex<float> point, int max_iter,
         debug_active = false;
     }
 
-    std::complex<float> z1(0, 0);
-    std::complex<float> z2(0, 0);
+    complex_type z1(0, 0);
+    complex_type z2(0, 0);
 
-    std::complex<float> c = point;
+    complex_type c = point;
     //für schnelle lookups
     std::unordered_map<std::string, int> hash_table;
 
     for (size_t j = 0; j < max_iter; j++)
     {
 
-        std::string z_string = float_to_string(z1.real()) +
-                               float_to_string(z1.imag()) +
-                               float_to_string(z2.real()) +
-                               float_to_string(z2.imag());
+        std::string z_string = double_to_string(z1.real()) +
+                               double_to_string(z1.imag()) +
+                               double_to_string(z2.real()) +
+                               double_to_string(z2.imag());
 
         if (hash_table.find(z_string) != hash_table.end())
         {
             //wert bereits in hash map
             int jump_counter = j - hash_table[z_string];
             //hier nach anzahl sprügne einfärben
-            return color_func(jump_counter, true, j, z1, max_iter);
+            return color_func(jump_counter, true, j, z1, z2, max_iter, sqrt(bailout_squared));
         }
 
         hash_table[z_string] = j;
 
-        std::complex<float> buffer(z1);
+        complex_type buffer(z1);
         z1 = fractal_func(z1, c) + (z2 * koppl);
 
         z2 = fractal_func(z2, c) - (buffer * koppl);
@@ -145,23 +145,55 @@ inline Color normal_iter_zw(std::complex<float> point, int max_iter,
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
         {
-            return color_func(0, false, j, z1, max_iter);
+            return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
         }
     }
 
-    return color_func(0, true, max_iter, z1, max_iter);
+    return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
 }
 
-inline Color julia_iter_zw(std::complex<float> point, int max_iter,
-                           fractal_callback fractal_func, color_callback color_func,
-                           std::complex<float> julia_const,
-                           float bailout_squared, float koppl)
+inline Color normal_iter_zw_no_tracking(complex_type point, int max_iter,
+                            fractal_callback fractal_func, color_callback color_func,
+                            complex_type julia_const,
+                            double bailout_squared, double koppl)
 {
 
-    std::complex<float> z1(point);
-    std::complex<float> z2(point);
 
-    std::complex<float> c = julia_const;
+    complex_type z1(0, 0);
+    complex_type z2(0, 0);
+
+    complex_type c = point;
+  
+
+    for (size_t j = 0; j < max_iter; j++)
+    {
+
+
+        complex_type buffer(z1);
+        z1 = fractal_func(z1, c) + (z2 * koppl);
+
+        z2 = fractal_func(z2, c) - (buffer * koppl);
+
+        if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
+            (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
+        {
+            return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
+        }
+    }
+
+    return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
+}
+
+inline Color julia_iter_zw(complex_type point, int max_iter,
+                           fractal_callback fractal_func, color_callback color_func,
+                           complex_type julia_const,
+                           double bailout_squared, double koppl)
+{
+
+    complex_type z1(point);
+    complex_type z2(point);
+
+    complex_type c = julia_const;
 
     //für schnelle lookups
     std::unordered_map<std::string, int> hash_table;
@@ -169,10 +201,10 @@ inline Color julia_iter_zw(std::complex<float> point, int max_iter,
     for (size_t j = 0; j < max_iter; j++)
     {
 
-        std::string z_string = float_to_string(z1.real()) +
-                               float_to_string(z1.imag()) +
-                               float_to_string(z2.real()) +
-                               float_to_string(z2.imag());
+        std::string z_string = double_to_string(z1.real()) +
+                               double_to_string(z1.imag()) +
+                               double_to_string(z2.real()) +
+                               double_to_string(z2.imag());
 
         if (hash_table.find(z_string) != hash_table.end())
         {
@@ -181,15 +213,15 @@ inline Color julia_iter_zw(std::complex<float> point, int max_iter,
             //hier nach anzahl sprügne einfärben
 
             //Color temp = color_table[jump_counter];
-            //return Color(jump_counter * 20, (abs(z1 + z2) / 4.0f) * 255.0f, ((float)j / (float)max_iter) * 255.0f);
-            return color_func(jump_counter, true, j, z1, max_iter);
-            //temp.b = ((float)j / (float)max_iter) * 255.0f;
+            //return Color(jump_counter * 20, (abs(z1 + z2) / 4.0f) * 255.0f, ((double)j / (double)max_iter) * 255.0f);
+            return color_func(jump_counter, true, j, z1, z2, max_iter, sqrt(bailout_squared));
+            //temp.b = ((double)j / (double)max_iter) * 255.0f;
             //return temp;
         }
 
         hash_table[z_string] = j;
 
-        std::complex<float> buffer(z1);
+        complex_type buffer(z1);
         z1 = fractal_func(z1, c) + (z2 * koppl);
 
         z2 = fractal_func(z2, c) - (buffer * koppl);
@@ -197,31 +229,28 @@ inline Color julia_iter_zw(std::complex<float> point, int max_iter,
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
         {
-            return color_func(0, false, j, z1, max_iter);
+            return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
         }
     }
 
-    return color_func(0, true, max_iter, z1, max_iter);
+    return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
 }
 
-inline Color julia_iter_zw_no_tracking(std::complex<float> point, int max_iter,
-                           fractal_callback fractal_func, color_callback color_func,
-                           std::complex<float> julia_const,
-                           float bailout_squared, float koppl)
+inline Color julia_iter_zw_no_tracking(complex_type point, int max_iter,
+                                       fractal_callback fractal_func, color_callback color_func,
+                                       complex_type julia_const,
+                                       double bailout_squared, double koppl)
 {
 
-    std::complex<float> z1(point);
-    std::complex<float> z2(point);
+    complex_type z1(point);
+    complex_type z2(point);
 
-    std::complex<float> c = julia_const;
-
-
+    complex_type c = julia_const;
 
     for (size_t j = 0; j < max_iter; j++)
     {
 
-
-        std::complex<float> buffer(z1);
+        complex_type buffer(z1);
         z1 = fractal_func(z1, c) + (z2 * koppl);
 
         z2 = fractal_func(z2, c) - (buffer * koppl);
@@ -229,11 +258,41 @@ inline Color julia_iter_zw_no_tracking(std::complex<float> point, int max_iter,
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
         {
-            return color_func(0, false, j, z1, max_iter);
+            return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
         }
     }
 
-    return color_func(0, true, max_iter, z1, max_iter);
+    return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
+}
+
+inline Color julia_iter_test_zw_no_tracking(complex_type point, int max_iter,
+                                       fractal_callback fractal_func, color_callback color_func,
+                                       complex_type julia_const,
+                                       double bailout_squared, double koppl)
+{
+
+    complex_type z1(point);
+    complex_type z2(point);
+
+    complex_type c = julia_const;
+
+    for (size_t j = 0; j < max_iter; j++)
+    {
+
+        complex_type buffer(z1);
+        z1 = fractal_func(z1, c) - (koppl* z2);
+
+        z2 = fractal_func(z2, c) - (z1 * koppl);
+
+
+        if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
+            (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
+        {
+            return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
+        }
+    }
+
+    return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
 }
 
 #endif // !FRAC_FUN_GUARD_!1212
