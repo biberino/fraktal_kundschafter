@@ -7,12 +7,12 @@ Functions_panel::Functions_panel(const Combo_entries &entries)
     _lbl_color.set_text("Farbe:   ");
 
     attach(_lbl_fractal, 0, 0, 1, 1);
-    attach(_lbl_iterations, 0, 1, 1, 1);
-    attach(_lbl_color, 0, 2, 1, 1);
+    attach(_lbl_iterations, 1, 0, 1, 1);
+    attach(_lbl_color, 2, 0, 1, 1);
 
-    attach(_combo_fractal, 1, 0, 1, 1);
+    attach(_combo_fractal, 0, 1, 1, 1);
     attach(_combo_iterations, 1, 1, 1, 1);
-    attach(_combo_color, 1, 2, 1, 1);
+    attach(_combo_color, 2, 1, 1, 1);
 
     /** Combo Box Entries **/
     /**FRACTAL**/

@@ -8,6 +8,7 @@
 //Gtk components
 #include "display.hpp"
 #include "options_panel.hpp"
+#include "functions_panel.hpp"
 
 #include "iterations.hpp"
 #include "fractal_functions.hpp"
@@ -139,14 +140,22 @@ int main(int argc, char *argv[])
 
     Combo_entries entries = setup_combo_entries();
 
+    Functions_panel func_panel(entries);
     Display display;
-    Options_panel opt_panel(&display, entries);
+
+    Options_panel opt_panel(&display, &func_panel);
+
+    Gtk::Paned v_box(Gtk::ORIENTATION_VERTICAL);
+
+    v_box.add1(func_panel);
 
     Gtk::Paned h_box(Gtk::ORIENTATION_HORIZONTAL);
 
     h_box.add1(opt_panel);
     h_box.add2(display);
-    window.add(h_box);
+
+    v_box.add2(h_box);
+    window.add(v_box);
 
     window.show_all_children();
 

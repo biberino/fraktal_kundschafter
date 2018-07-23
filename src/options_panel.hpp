@@ -24,7 +24,7 @@ private:
   Gtk::Button _button_draw;
   Range_panel _range_panel;
   Gtk::Separator _sep_1;
-  Functions_panel _func_panel;
+  Functions_panel *_func_panel;
   Parameters_panel _params_panel;
   Gtk::ProgressBar _progress_bar;
 
@@ -47,7 +47,7 @@ protected:
   void on_button_zoom_out_click();
 
 public:
-  Options_panel(Display *display, const Combo_entries& combo_entries);
+  Options_panel(Display *display, Functions_panel *func_panel);
   ~Options_panel();
 };
 
