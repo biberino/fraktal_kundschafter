@@ -3,7 +3,7 @@
 
 #include "types.hpp"
 
-const int MAX_COLORS = 14;
+const int MAX_COLORS = 29;
 Color color_table[] = {
     Color(0x55E8F8),
     Color(0x03F472),
@@ -18,7 +18,22 @@ Color color_table[] = {
     Color(0x386356),
     Color(0x7CC8B1),
     Color(0xD8D63F),
-    Color(0x783D68)};
+    Color(0x783D68),
+    Color(0x2F4F4F),
+    Color(0x2F4F4F),
+    Color(0x191970),
+    Color(0x00BFFF),
+    Color(0x556B2F),
+    Color(0x2E8B57),
+    Color(0xFFD700),
+    Color(0x8B4513),
+    Color(0xD2B48C),
+    Color(0xFA8072),
+    Color(0xFF4500),
+    Color(0x9932CC),
+    Color(0x1874CD),
+    Color(0x9ACD32),
+    Color(0x8B7500)};
 
 inline Color color_gradient_linear(double start, double end, double point)
 {
@@ -110,8 +125,48 @@ inline Color colorize_distance_linear_gradient(int jumps, bool in_set, int num_i
         return Color(temp, temp, temp);
     }
 
-    return color_gradient_linear(0.0f, 2.0f*bailout, abs(end_point1 + end_point2));
+    return color_gradient_linear(0.0f, 2.0f * bailout, abs(end_point1 + end_point2));
 }
 
+inline Color colorize_inner_dist_outer_table(int jumps, bool in_set, int num_itertaions,
+                                             complex_type end_point1,
+                                             complex_type end_point2, int max_iter,
+                                             double bailout)
+{
+
+    if (!in_set)
+    {
+        if (num_itertaions < MAX_COLORS)
+        {
+            return color_table[num_itertaions];
+        }
+        unsigned char temp = (std::log(num_itertaions) / std::log(max_iter)) * 255.0f;
+
+        return Color(temp, temp, temp);
+    }
+
+    return color_gradient_linear(0.0f, 2.0f * bailout, abs(end_point1 + end_point2));
+}
+
+inline Color colorize_inner_dist_outer_gradient(int jumps, bool in_set, int num_itertaions,
+                                                complex_type end_point1,
+                                                complex_type end_point2, int max_iter,
+                                                double bailout)
+{
+
+    if (!in_set)
+    {
+
+        if (num_itertaions < MAX_COLORS)
+        {
+            return color_gradient_linear(0.0f, MAX_COLORS - 1, num_itertaions);
+        }
+        unsigned char temp = (std::log(num_itertaions) / std::log(max_iter)) * 255.0f;
+
+        return Color(temp, temp, temp);
+    }
+
+    return color_gradient_linear(0.0f, 2.0f * bailout, abs(end_point1 + end_point2));
+}
 
 #endif // !COLORS_GUARD

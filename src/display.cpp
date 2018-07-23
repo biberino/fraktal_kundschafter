@@ -13,6 +13,7 @@ void Display::set_data(int width, int height, unsigned char *data)
 {
 
     _image = Gdk::Pixbuf::create_from_data((const guint8 *)data, Gdk::Colorspace::COLORSPACE_RGB, 0, 8, width, height, width * 3);
+  //  _zoom_box = Gdk::Pixbuf::create_from_data((const guint8 *)data, Gdk::Colorspace::COLORSPACE_RGB, 0, 8, width, height, width * 3);
 }
 
 bool Display::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)

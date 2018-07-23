@@ -112,6 +112,16 @@ Combo_entries setup_combo_entries()
         "Abstand linear",
         colorize_distance_linear_gradient));
 
+    retVal.color_entries.push_back(Combo_entry_color(
+        "Färbt nach Abstand, linearer Gradient+ Divergenz nach Tabelle",
+        "Abstand linear + Divergenz nach Tabelle",
+        colorize_inner_dist_outer_table));
+
+    retVal.color_entries.push_back(Combo_entry_color(
+        "Färbt nach Abstand, linearer Gradient+ Divergenz Gradient",
+        "Abstand linear + Divergenz Gradient",
+        colorize_inner_dist_outer_gradient));
+
     return retVal;
 }
 

@@ -19,6 +19,7 @@ protected:
   bool on_draw(const Cairo::RefPtr<Cairo::Context> &cr) override;
 
   Glib::RefPtr<Gdk::Pixbuf> _image;
+  Glib::RefPtr<Gdk::Pixbuf> _zoom_box;
 
 private:
 };
