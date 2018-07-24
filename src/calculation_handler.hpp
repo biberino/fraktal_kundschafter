@@ -22,6 +22,7 @@ struct calculation_params
     fractal_callback fractal_function;
     color_callback color_function;
     complex_type julia_const;
+    double gen_param;
 };
 
 class Calculation_handler

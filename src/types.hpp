@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 
-
 using complex_type = std::complex<double>;
 
 struct Resolution_info
@@ -60,15 +59,16 @@ struct Parameters_Info
     int max_iter;
     double koppl;
     Resolution_info res;
+    double gen_param;
+    double bailout;
 };
 
-
 using color_callback = Color (*)(int, bool, int, complex_type, complex_type, int, double);
-using fractal_callback = complex_type (*)(complex_type, complex_type);
+using fractal_callback = complex_type (*)(complex_type, complex_type, double);
 using iter_callback = Color (*)(complex_type, int,
                                 fractal_callback, color_callback,
                                 complex_type,
-                                double, double);
+                                double, double, double);
 
 struct Combo_entry_fractal
 {

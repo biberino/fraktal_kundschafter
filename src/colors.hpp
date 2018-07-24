@@ -169,4 +169,25 @@ inline Color colorize_inner_dist_outer_gradient(int jumps, bool in_set, int num_
     return color_gradient_linear(0.0f, 2.0f * bailout, abs(end_point1 + end_point2));
 }
 
+inline Color colorize_inner_angle_outer_gradient(int jumps, bool in_set, int num_itertaions,
+                                                complex_type end_point1,
+                                                complex_type end_point2, int max_iter,
+                                                double bailout)
+{
+
+    if (!in_set)
+    {
+
+        if (num_itertaions < MAX_COLORS)
+        {
+            return color_gradient_linear(0.0f, MAX_COLORS - 1, num_itertaions);
+        }
+        unsigned char temp = (std::log(num_itertaions) / std::log(max_iter)) * 255.0f;
+
+        return Color(temp, temp, temp);
+    }
+
+    return color_gradient_linear(0.0f, 2.0f * 3.14159265f, std::arg(end_point1));
+}
+
 #endif // !COLORS_GUARD

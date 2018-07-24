@@ -26,7 +26,7 @@ inline std::string double_to_string(double f)
 inline Color normal_iter(complex_type point, int max_iter,
                          fractal_callback fractal_func, color_callback color_func,
                          complex_type julia_const,
-                         double bailout_squared, double koppl)
+                         double bailout_squared, double koppl, double gen_param)
 {
 
     complex_type z(0, 0);
@@ -51,7 +51,7 @@ inline Color normal_iter(complex_type point, int max_iter,
 
         hash_table[z_string] = j;
 
-        z = fractal_func(z, c);
+        z = fractal_func(z, c, gen_param);
 
         if (((z.real() * z.real()) + (z.imag() * z.imag())) > bailout_squared)
         {
@@ -65,7 +65,7 @@ inline Color normal_iter(complex_type point, int max_iter,
 inline Color julia_iter(complex_type point, int max_iter,
                         fractal_callback fractal_func, color_callback color_func,
                         complex_type julia_const,
-                        double bailout_squared, double koppl)
+                        double bailout_squared, double koppl, double gen_param)
 {
 
     complex_type z = point;
@@ -90,7 +90,7 @@ inline Color julia_iter(complex_type point, int max_iter,
 
         hash_table[z_string] = j;
 
-        z = fractal_func(z, c);
+        z = fractal_func(z, c, gen_param);
 
         if (((z.real() * z.real()) + (z.imag() * z.imag())) > bailout_squared)
         {
@@ -104,7 +104,7 @@ inline Color julia_iter(complex_type point, int max_iter,
 inline Color normal_iter_zw(complex_type point, int max_iter,
                             fractal_callback fractal_func, color_callback color_func,
                             complex_type julia_const,
-                            double bailout_squared, double koppl)
+                            double bailout_squared, double koppl, double gen_param)
 {
     if (debug_active)
     {
@@ -138,9 +138,9 @@ inline Color normal_iter_zw(complex_type point, int max_iter,
         hash_table[z_string] = j;
 
         complex_type buffer(z1);
-        z1 = fractal_func(z1, c) + (z2 * koppl);
+        z1 = fractal_func(z1, c, gen_param) + (z2 * koppl);
 
-        z2 = fractal_func(z2, c) - (buffer * koppl);
+        z2 = fractal_func(z2, c, gen_param) - (buffer * koppl);
 
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
@@ -153,26 +153,23 @@ inline Color normal_iter_zw(complex_type point, int max_iter,
 }
 
 inline Color normal_iter_zw_no_tracking(complex_type point, int max_iter,
-                            fractal_callback fractal_func, color_callback color_func,
-                            complex_type julia_const,
-                            double bailout_squared, double koppl)
+                                        fractal_callback fractal_func, color_callback color_func,
+                                        complex_type julia_const,
+                                        double bailout_squared, double koppl, double gen_param)
 {
-
 
     complex_type z1(0, 0);
     complex_type z2(0, 0);
 
     complex_type c = point;
-  
 
     for (size_t j = 0; j < max_iter; j++)
     {
 
-
         complex_type buffer(z1);
-        z1 = fractal_func(z1, c) + (z2 * koppl);
+        z1 = fractal_func(z1, c, gen_param) + (z2 * koppl);
 
-        z2 = fractal_func(z2, c) - (buffer * koppl);
+        z2 = fractal_func(z2, c, gen_param) - (buffer * koppl);
 
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
@@ -187,7 +184,7 @@ inline Color normal_iter_zw_no_tracking(complex_type point, int max_iter,
 inline Color julia_iter_zw(complex_type point, int max_iter,
                            fractal_callback fractal_func, color_callback color_func,
                            complex_type julia_const,
-                           double bailout_squared, double koppl)
+                           double bailout_squared, double koppl, double gen_param)
 {
 
     complex_type z1(point);
@@ -222,9 +219,9 @@ inline Color julia_iter_zw(complex_type point, int max_iter,
         hash_table[z_string] = j;
 
         complex_type buffer(z1);
-        z1 = fractal_func(z1, c) + (z2 * koppl);
+        z1 = fractal_func(z1, c, gen_param) + (z2 * koppl);
 
-        z2 = fractal_func(z2, c) - (buffer * koppl);
+        z2 = fractal_func(z2, c, gen_param) - (buffer * koppl);
 
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
@@ -239,7 +236,7 @@ inline Color julia_iter_zw(complex_type point, int max_iter,
 inline Color julia_iter_zw_no_tracking(complex_type point, int max_iter,
                                        fractal_callback fractal_func, color_callback color_func,
                                        complex_type julia_const,
-                                       double bailout_squared, double koppl)
+                                       double bailout_squared, double koppl, double gen_param)
 {
 
     complex_type z1(point);
@@ -251,9 +248,9 @@ inline Color julia_iter_zw_no_tracking(complex_type point, int max_iter,
     {
 
         complex_type buffer(z1);
-        z1 = fractal_func(z1, c) + (z2 * koppl);
+        z1 = fractal_func(z1, c, gen_param) + (z2 * koppl);
 
-        z2 = fractal_func(z2, c) - (buffer * koppl);
+        z2 = fractal_func(z2, c, gen_param) - (buffer * koppl);
 
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))
@@ -266,9 +263,9 @@ inline Color julia_iter_zw_no_tracking(complex_type point, int max_iter,
 }
 
 inline Color julia_iter_test_zw_no_tracking(complex_type point, int max_iter,
-                                       fractal_callback fractal_func, color_callback color_func,
-                                       complex_type julia_const,
-                                       double bailout_squared, double koppl)
+                                            fractal_callback fractal_func, color_callback color_func,
+                                            complex_type julia_const,
+                                            double bailout_squared, double koppl, double gen_param)
 {
 
     complex_type z1(point);
@@ -280,10 +277,9 @@ inline Color julia_iter_test_zw_no_tracking(complex_type point, int max_iter,
     {
 
         complex_type buffer(z1);
-        z1 = fractal_func(z1, c) - (koppl* z2);
+        z1 = fractal_func(z1, c, gen_param) - (koppl * z2);
 
-        z2 = fractal_func(z2, c) - (z1 * koppl);
-
+        z2 = fractal_func(z2, c, gen_param) - (z1 * koppl);
 
         if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) > bailout_squared) &&
             (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) > bailout_squared))

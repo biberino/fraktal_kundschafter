@@ -2,7 +2,7 @@
 
 #include "options_panel.hpp"
 
-Options_panel::Options_panel(Display *display, Functions_panel * func_panel)
+Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL)
 {
 
@@ -60,7 +60,7 @@ void Options_panel::read_params()
     _calc_params.color_function = _func_panel->get_color_callback();
     _calc_params.fractal_function = _func_panel->get_fractal_callback();
 
-    _calc_params.bailout_squared = 4.0f;
+    _calc_params.bailout_squared = p.bailout * p.bailout;
     _calc_params.julia_const = complex_type(-1, 0);
     _calc_params.resolution = p.res;
     _calc_params.work_size = 4000;
@@ -70,6 +70,7 @@ void Options_panel::read_params()
     _calc_params.x_max = a.x_max;
     _calc_params.y_min = a.y_min;
     _calc_params.y_max = a.y_max;
+    _calc_params.gen_param = p.gen_param;
 }
 
 void Options_panel::on_button_draw_clicked()

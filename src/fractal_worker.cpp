@@ -47,7 +47,8 @@ void Fractal_worker::start()
                                                      _params.color_function,
                                                      _params.julia_const,
                                                      _params.bailout_squared,
-                                                     _params.koppl);
+                                                     _params.koppl,
+                                                     _params.gen_param);
             colors.push_back(color);
         }
         _params.store->put(&colors);

@@ -21,6 +21,7 @@ struct Fractal_params
   double koppl;
   double bailout_squared;
   complex_type julia_const;
+  double gen_param;
 };
 
 class Fractal_worker

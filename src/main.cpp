@@ -31,23 +31,13 @@ Combo_entries setup_combo_entries()
 
     retVal.fractal_entries.push_back(Combo_entry_fractal(
         "Schädel",
-        "z = z ^ (*z) - 1",
-        mandelbrot_konj_minus_1));
+        "z = z ^ (*z) + gen",
+        mandelbrot_konj_plus_gen));
 
     retVal.fractal_entries.push_back(Combo_entry_fractal(
         "Kondensator",
-        "z = (z*c) / (z+c)",
-        kondensator_1));
-
-    retVal.fractal_entries.push_back(Combo_entry_fractal(
-        "Kondensator",
-        "z = ((z*c) / (z+c)) -1",
-        kondensator_2));
-
-    retVal.fractal_entries.push_back(Combo_entry_fractal(
-        "Kondensator",
-        "z = ((z*c) / (z+c)) +1",
-        kondensator_3));
+        "z = ((z*c) / (z+c)) + gen",
+        kondensator_plus_gen));
 
     retVal.fractal_entries.push_back(Combo_entry_fractal(
         "Kondensator",
@@ -59,6 +49,50 @@ Combo_entries setup_combo_entries()
         "z = ((z*(z*)*c) / (z*(z*)+c))",
         kondensator_5));
 
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "EXP",
+        "z = (exp(Z) + C)",
+        e_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "EXP",
+        "z = (exp(Z) + gen)",
+        e_1_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "EXP 2",
+        "z = (exp(Z)^exp(Z*) + gen)",
+        e_2));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "EXP 3",
+        "z = (exp(Z)^exp(Z*) + c)",
+        e_3));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "EXP 4",
+        "z = (exp(Z^Z*) + gen)",
+        e_4));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "EXP 5",
+        "z = (exp(Z^Z*) + c)",
+        e_5));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = (Z^2+c) / (Z - C)",
+        lifesmith_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = (Z*(Z*)+c) / (Z - C)",
+        lifesmith_1_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = (Z*(Z*)+c) / (Z* - C)",
+        lifesmith_1_2));
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
@@ -122,6 +156,11 @@ Combo_entries setup_combo_entries()
         "Färbt nach Abstand, linearer Gradient+ Divergenz Gradient",
         "Abstand linear + Divergenz Gradient",
         colorize_inner_dist_outer_gradient));
+
+    retVal.color_entries.push_back(Combo_entry_color(
+        "Färbt nach Winkel, linearer Gradient+ Divergenz Gradient",
+        "Winkel linear + Divergenz Gradient",
+        colorize_inner_angle_outer_gradient));
 
     return retVal;
 }
