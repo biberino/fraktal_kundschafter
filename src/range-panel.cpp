@@ -1,5 +1,8 @@
 #include "range-panel.hpp"
 #include <iostream>
+#include <limits>
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
 
 Range_panel::Range_panel()
 {
@@ -55,8 +58,22 @@ Axis_info Range_panel::get_data()
 
 void Range_panel::set_data(Axis_info axis)
 {
-    _txt_x_min.set_text(std::to_string(axis.x_min));
-    _txt_x_max.set_text(std::to_string(axis.x_max));
-    _txt_y_min.set_text(std::to_string(axis.y_min));
-    _txt_y_max.set_text(std::to_string(axis.y_max));
+    int max_digits = std::numeric_limits<double>::max_digits10;
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(max_digits) << axis.x_min;
+
+    _txt_x_min.set_text(stream.str());
+
+    stream.str("");
+    stream << std::fixed << std::setprecision(max_digits) << axis.x_max;
+    _txt_x_max.set_text(stream.str());
+
+    stream.str("");
+    stream << std::fixed << std::setprecision(max_digits) << axis.y_min;
+    _txt_y_min.set_text(stream.str());
+    stream.str("");
+
+    stream << std::fixed << std::setprecision(max_digits) << axis.y_max;
+    _txt_y_max.set_text(stream.str());
+
 }

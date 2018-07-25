@@ -71,6 +71,31 @@ void Options_panel::read_params()
     _calc_params.y_min = a.y_min;
     _calc_params.y_max = a.y_max;
     _calc_params.gen_param = p.gen_param;
+
+    //zoom data verfügbar??
+
+    if (_display->zoom_active())
+    {
+        double x_diff = a.x_max - a.x_min;
+        double y_diff = a.y_max - a.y_min;
+
+        Display::Rectangle zoom_rect = _display->get_zoom_rect();
+        _display->remove_zoom();
+        //oben links nach unten rechts!!
+        _calc_params.x_min = zoom_rect.x1 * (x_diff / (double)_calc_params.resolution.x) + (double)a.x_min;
+        _calc_params.y_max = ((-1.0f * zoom_rect.y1 + (double)_calc_params.resolution.y) * ((double)y_diff / (double)_calc_params.resolution.y) + (double)a.y_min);
+
+        _calc_params.x_max = zoom_rect.x2 * (x_diff / (double)_calc_params.resolution.x) + (double)a.x_min;
+        _calc_params.y_min = ((-1.0f * zoom_rect.y2 + (double)_calc_params.resolution.y) * ((double)y_diff / (double)_calc_params.resolution.y) + (double)a.y_min);
+
+        //update range panel
+        a.x_min = _calc_params.x_min;
+        a.x_max = _calc_params.x_max;
+        a.y_min = _calc_params.y_min;
+        a.y_max = _calc_params.y_max;
+
+        _range_panel.set_data(a);
+    }
 }
 
 void Options_panel::on_button_draw_clicked()

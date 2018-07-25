@@ -93,6 +93,11 @@ Combo_entries setup_combo_entries()
         "lifesmith",
         "z = (Z*(Z*)+c) / (Z* - C)",
         lifesmith_1_2));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = Z^2 - Z + C",
+        lifesmith_2));
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(

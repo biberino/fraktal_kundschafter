@@ -91,4 +91,12 @@ inline complex_type lifesmith_1_2(complex_type z, complex_type c, double gen)
     return (z * std::conj(z) + c) / (std::conj(z) - c);
 }
 
+inline complex_type lifesmith_2(complex_type z, complex_type c, double gen)
+{
+    //Z^2 - Z + C
+    return (((z * z) - z) + c);
+}
+
+
+
 #endif // !FRAC_FUN_GUARD_!1212
