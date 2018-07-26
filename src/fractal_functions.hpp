@@ -97,6 +97,42 @@ inline complex_type lifesmith_2(complex_type z, complex_type c, double gen)
     return (((z * z) - z) + c);
 }
 
+inline complex_type lifesmith_2_1(complex_type z, complex_type c, double gen)
+{
+    //Z*Z* - Z + C
+    return (((z * std::conj(z)) - z) + c);
+}
+
+inline complex_type lifesmith_2_2(complex_type z, complex_type c, double gen)
+{
+    //Z*Z* - Z* + C
+    return (((z * std::conj(z)) - (std::conj(z))) + c);
+}
+
+inline complex_type lifesmith_3(complex_type z, complex_type c, double gen)
+{
+    //Z * exp(-Z) + C
+    return (((z * std::exp(-z)) + c));
+}
+
+inline complex_type lifesmith_3_1(complex_type z, complex_type c, double gen)
+{
+    //Z * exp(Z*) + C
+    return (((z * std::exp(std::conj(z))) + c));
+}
+
+inline complex_type lifesmith_4(complex_type z, complex_type c, double gen)
+{
+    //Z^3 / (1 + CZ^2)
+    return (pow(z, 3) / (complex_type(1,0) + c * pow(z, 2)));
+}
+
+
+inline complex_type lifesmith_5(complex_type z, complex_type c, double gen)
+{
+    ////Z^2sin(Re Z) + CZcos(Im Z) + C
+    return (pow(z,2)* sin(z.real()) + c*cos(z.imag()) + c);
+}
 
 
 #endif // !FRAC_FUN_GUARD_!1212

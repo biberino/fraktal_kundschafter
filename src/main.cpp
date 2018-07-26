@@ -98,6 +98,36 @@ Combo_entries setup_combo_entries()
         "lifesmith",
         "z = Z^2 - Z + C",
         lifesmith_2));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = Z*(Z*) - Z + C",
+        lifesmith_2_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = Z*(Z*) - Z* + C",
+        lifesmith_2_2));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = Z * exp(-Z) + C",
+        lifesmith_3));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = Z * exp(Z*) + C",
+        lifesmith_3_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = Z^3 / (1 + CZ^2)",
+        lifesmith_4));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "Z^2sin(Re Z) + CZcos(Im Z) + C",
+        lifesmith_5));
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
