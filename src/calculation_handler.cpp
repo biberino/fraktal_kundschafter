@@ -1,8 +1,11 @@
 #include <thread>
-#include "calculation_handler.hpp"
 
-Calculation_handler::Calculation_handler(Gtk::ProgressBar *progress)
-    : store(progress)
+#include "calculation_handler.hpp"
+#include "options_panel.hpp"
+
+
+Calculation_handler::Calculation_handler(Options_panel *caller)
+    : store(caller)
 {
 }
 

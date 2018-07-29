@@ -24,6 +24,12 @@ private:
   Gtk::Label _lbl_bailout;
   Gtk::Entry _txt_bailout;
 
+  Gtk::Label _lbl_startpoint_real;
+  Gtk::Entry _txt_startpoint_real;
+
+   Gtk::Label _lbl_startpoint_imag;
+  Gtk::Entry _txt_startpoint_imag;
+
 public:
   Parameters_panel(/* args */);
   ~Parameters_panel();

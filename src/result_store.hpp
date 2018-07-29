@@ -7,6 +7,8 @@
 
 #include "types.hpp"
 
+class Options_panel;
+
 class Result_store
 {
 private:
@@ -14,16 +16,16 @@ private:
   Resolution_info _res;
   std::mutex _mutex;
   unsigned char *_data = nullptr;
-  Gtk::ProgressBar *_progress;
+  Options_panel *_caller;
   int _num_points;
   int _num_points_calculated;
 
 public:
-  Result_store(Gtk::ProgressBar *progress);
+  Result_store(Options_panel *caller);
   ~Result_store();
   void reset(Resolution_info res);
   void put(std::vector<Color_info> *vec);
-  unsigned char * get_data_pointer();
+  unsigned char *get_data_pointer();
   //std::vector<Color_info> *get_vector();
 };
 

@@ -1,9 +1,10 @@
 #include <iostream>
 #include "result_store.hpp"
+#include "options_panel.hpp"
 
-Result_store::Result_store(Gtk::ProgressBar *progress)
+Result_store::Result_store(Options_panel *caller)
 {
-    _progress = progress;
+    _caller = caller;
 }
 
 Result_store::~Result_store()
@@ -18,6 +19,7 @@ Result_store::~Result_store()
 void Result_store::reset(Resolution_info res)
 {
     std::cout << "RESET:" << res.x << "  " << res.y << '\n';
+    std::string buffer = "RESET " + std::to_string(res.x) + " " + std::to_string(res.y);
     _res = res;
     //_color_vec.clear();
     if (_data != nullptr)
@@ -42,8 +44,13 @@ void Result_store::put(std::vector<Color_info> *vec)
         //std::cout << "Inserted:" << el.pixel.x << "|" << el.pixel.y << " --> " << el.color.dummy << '\n';
     }
     _num_points_calculated += vec->size();
-    double buffer = (double)_num_points_calculated / (double)_num_points;
-    std::cout << buffer << '\n';
+    double fraction_buffer = (double)_num_points_calculated /
+                             (double)_num_points;
+
+    std::string buffer = std::to_string(fraction_buffer);
+    buffer += '\n';
+    //std::cout << buffer << '\n';
+    _caller->update_progress(fraction_buffer);
     //_progress->set_fraction(buffer);
 }
 

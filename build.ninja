@@ -121,10 +121,12 @@ build build/_calculation_handler.o: cxx src/calculation_handler.cpp
 build build/_display.o: cxx src/display.cpp
 build build/_fractal_worker.o: cxx src/fractal_worker.cpp
 build build/_functions_panel.o: cxx src/functions_panel.cpp
+build build/_info_panel.o: cxx src/info_panel.cpp
 build build/_main.o: cxx src/main.cpp
 build build/_options_panel.o: cxx src/options_panel.cpp
 build build/_parameters_panel.o: cxx src/parameters_panel.cpp
 build build/_range-panel.o: cxx src/range-panel.cpp
 build build/_result_store.o: cxx src/result_store.cpp
+build build/_time.o: cxx src/time.cpp
 build build/_workload_distributor.o: cxx src/workload_distributor.cpp
-build bin/fraktal_kundschafter: link build/_calculation_handler.o build/_display.o build/_fractal_worker.o build/_functions_panel.o build/_main.o build/_options_panel.o build/_parameters_panel.o build/_range-panel.o build/_result_store.o build/_workload_distributor.o
+build bin/fraktal_kundschafter: link build/_calculation_handler.o build/_display.o build/_fractal_worker.o build/_functions_panel.o build/_info_panel.o build/_main.o build/_options_panel.o build/_parameters_panel.o build/_range-panel.o build/_result_store.o build/_time.o build/_workload_distributor.o

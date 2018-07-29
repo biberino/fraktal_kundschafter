@@ -1,7 +1,6 @@
 #ifndef CAL_GUARD_1212
 #define CAL_GUARD_1212
 
-#include <gtkmm/progressbar.h>
 #include "types.hpp"
 #include "workload_distributor.hpp"
 #include "result_store.hpp"
@@ -25,6 +24,8 @@ struct calculation_params
     double gen_param;
 };
 
+class Options_panel;
+
 class Calculation_handler
 {
   private:
@@ -33,7 +34,7 @@ class Calculation_handler
     Result_store store;
 
   public:
-    Calculation_handler(Gtk::ProgressBar *progress);
+    Calculation_handler(Options_panel *caller);
     ~Calculation_handler();
     void set_params(calculation_params params);
     void calculate();

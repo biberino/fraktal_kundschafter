@@ -3,8 +3,15 @@
 #include "options_panel.hpp"
 
 Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
-    : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL)
+    : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL),
+      _sep_2(Gtk::Orientation::ORIENTATION_HORIZONTAL)
 {
+
+    _dispatcher.connect(sigc::mem_fun(*this,
+                                      &Options_panel::on_dispatcher_notify));
+
+    _dispatcher_time.connect(sigc::mem_fun(*this,
+                                           &Options_panel::on_dispatcher_time_notify));
 
     /** Beginn GUI **/
     _button_draw.add_label("Zeichnen");
@@ -12,6 +19,7 @@ Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     _button_zoom_reset.add_label("Reset Zoom");
 
     _sep_1.set_size_request(10, 10);
+    _sep_2.set_size_request(10, 10);
 
     _grid_main.attach(_range_panel, 0, 0, 2, 1);
     _grid_main.attach(_sep_1, 0, 1, 2, 1);
@@ -20,7 +28,9 @@ Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     _grid_main.attach(_button_zoom_reset, 0, 4, 1, 1);
     _grid_main.attach(_button_zoom_out, 1, 4, 1, 1);
     _grid_main.attach(_button_draw, 0, 5, 2, 1);
-    _grid_main.attach(_progress_bar, 0, 6, 2, 1);
+    _grid_main.attach(_sep_2, 0, 6, 2, 1);
+    _grid_main.attach(_progress_bar, 0, 7, 2, 1);
+    _grid_main.attach(_info_panel, 0, 8, 2, 1);
 
     add(_grid_main);
     show_all_children();
@@ -43,7 +53,7 @@ Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     /** Ende GUI **/
     _func_panel = func_panel;
     _display = display;
-    _calc_handler = new Calculation_handler(&_progress_bar);
+    _calc_handler = new Calculation_handler(this);
 }
 
 Options_panel::~Options_panel()
@@ -61,7 +71,7 @@ void Options_panel::read_params()
     _calc_params.fractal_function = _func_panel->get_fractal_callback();
 
     _calc_params.bailout_squared = p.bailout * p.bailout;
-    _calc_params.julia_const = complex_type(-1, 0);
+    _calc_params.julia_const = p.startpoint;
     _calc_params.resolution = p.res;
     _calc_params.work_size = 4000;
     _calc_params.max_iter = p.max_iter;
@@ -101,6 +111,7 @@ void Options_panel::read_params()
 void Options_panel::on_button_draw_clicked()
 {
     std::cout << "CLICKED!!!" << '\n';
+    _time.start();
     _calc_thread = std::thread(&Options_panel::start_calculation, this);
     _calc_thread.detach();
 }
@@ -112,6 +123,7 @@ void Options_panel::start_calculation()
     _calc_handler->calculate(); //TODO: this blocks, maybe new thread + progressbar
     _display->set_data(_calc_params.resolution.x, _calc_params.resolution.y, _calc_handler->get_result_pointer());
     _display->queue_draw();
+    stop_time();
 }
 
 void Options_panel::on_button_zoom_out_click()
@@ -132,4 +144,29 @@ void Options_panel::on_button_reset_zoom_click()
     a.y_min = -1.0;
     a.y_max = 1.0;
     _range_panel.set_data(a);
+}
+
+void Options_panel::on_dispatcher_notify()
+{
+    //Update GUI from GUI Thread
+    _progress_bar.set_fraction(_calc_fraction);
+}
+
+void Options_panel::update_progress(double fraction)
+{
+    _calc_fraction = fraction;
+    _dispatcher.emit();
+}
+
+void Options_panel::stop_time()
+{
+    _time_millis = _time.stop();
+    _dispatcher_time.emit();
+}
+
+void Options_panel::on_dispatcher_time_notify()
+{
+
+    std::string buffer = "Berechnung fertig: " + std::to_string((float)_time_millis / 1000.0f) + '\n';
+    _info_panel.append_message(buffer);
 }

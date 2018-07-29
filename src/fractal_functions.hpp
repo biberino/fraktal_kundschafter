@@ -124,15 +124,33 @@ inline complex_type lifesmith_3_1(complex_type z, complex_type c, double gen)
 inline complex_type lifesmith_4(complex_type z, complex_type c, double gen)
 {
     //Z^3 / (1 + CZ^2)
-    return (pow(z, 3) / (complex_type(1,0) + c * pow(z, 2)));
+    return (pow(z, 3) / (complex_type(1, 0) + c * pow(z, 2)));
 }
-
 
 inline complex_type lifesmith_5(complex_type z, complex_type c, double gen)
 {
     ////Z^2sin(Re Z) + CZcos(Im Z) + C
-    return (pow(z,2)* sin(z.real()) + c*cos(z.imag()) + c);
+    return (pow(z, 2) * sin(z.real()) + c * cos(z.imag()) + c);
 }
 
+inline complex_type schaedel_exp(complex_type z, complex_type c, double gen)
+{
+    return std::exp(std::pow(z, std::conj(z)) + complex_type(gen, 0));
+}
+
+inline complex_type fractal_1(complex_type z, complex_type c, double gen)
+{
+    return (std::pow(z, std::conj(z)) + complex_type(gen, 0)) + ((z * c) / (z + c));
+}
+
+inline complex_type fractal_2(complex_type z, complex_type c, double gen)
+{
+    return (std::pow(z, 2) / (complex_type(2, 0) * z)) + complex_type(gen, 0);
+}
+
+inline complex_type fractal_3(complex_type z, complex_type c, double gen)
+{
+    return (std::pow(z, 2) / (complex_type(2, 0) * z)) + c;
+}
 
 #endif // !FRAC_FUN_GUARD_!1212

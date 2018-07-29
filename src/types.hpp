@@ -61,6 +61,7 @@ struct Parameters_Info
     Resolution_info res;
     double gen_param;
     double bailout;
+    complex_type startpoint;
 };
 
 using color_callback = Color (*)(int, bool, int, complex_type, complex_type, int, double);

@@ -29,7 +29,7 @@ inline Color normal_iter(complex_type point, int max_iter,
                          double bailout_squared, double koppl, double gen_param)
 {
 
-    complex_type z(0, 0);
+    complex_type z = julia_const;
     complex_type c = point;
     //für schnelle lookups
     std::unordered_map<std::string, int> hash_table;
@@ -106,14 +106,9 @@ inline Color normal_iter_zw(complex_type point, int max_iter,
                             complex_type julia_const,
                             double bailout_squared, double koppl, double gen_param)
 {
-    if (debug_active)
-    {
-        std::cout << "ZWILLING" << max_iter << " " << koppl << " " << bailout_squared << '\n';
-        debug_active = false;
-    }
 
-    complex_type z1(0, 0);
-    complex_type z2(0, 0);
+    complex_type z1 = julia_const;
+    complex_type z2 = julia_const;
 
     complex_type c = point;
     //für schnelle lookups
@@ -158,8 +153,8 @@ inline Color normal_iter_zw_no_tracking(complex_type point, int max_iter,
                                         double bailout_squared, double koppl, double gen_param)
 {
 
-    complex_type z1(0, 0);
-    complex_type z2(0, 0);
+    complex_type z1 = julia_const;
+    complex_type z2 = julia_const;
 
     complex_type c = point;
 
