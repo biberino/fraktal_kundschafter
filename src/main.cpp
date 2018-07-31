@@ -2,13 +2,7 @@
 #include <thread>
 //#include <SDL2/SDL.h>
 #include <gtkmm.h>
-
-#include "calculation_handler.hpp"
-
-//Gtk components
-#include "display.hpp"
-#include "options_panel.hpp"
-#include "functions_panel.hpp"
+#include "main_window.hpp"
 
 #include "iterations.hpp"
 #include "fractal_functions.hpp"
@@ -148,6 +142,26 @@ Combo_entries setup_combo_entries()
         "lifesmith",
         "z = z^2 / 2z + c",
         fractal_3));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = ((z*c)^2 + 1) / (z+c)",
+        fractal_4));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = (sqrt((z*c)^2 + 1)) / (z+c)",
+        fractal_5));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = (z* z*)^2 + c",
+        fractal_6));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "lifesmith",
+        "z = sqrt((z* z*)^2 + 1)+c",
+        fractal_7));
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
@@ -222,38 +236,10 @@ Combo_entries setup_combo_entries()
 
 int main(int argc, char *argv[])
 {
-
-    //display.show();
-
-    //draw(&store);
-
     auto app = Gtk::Application::create(argc, argv, "biber.fractale.test");
-    Gtk::Window window;
-    window.set_default_size(800, 600);
-    window.set_title("Fraktal Kundschafter");
+    Main_window main_window(setup_combo_entries());
 
-    Combo_entries entries = setup_combo_entries();
-
-    Functions_panel func_panel(entries);
-    Display display;
-
-    Options_panel opt_panel(&display, &func_panel);
-
-    Gtk::Paned v_box(Gtk::ORIENTATION_VERTICAL);
-
-    v_box.add1(func_panel);
-
-    Gtk::Paned h_box(Gtk::ORIENTATION_HORIZONTAL);
-
-    h_box.add1(opt_panel);
-    h_box.add2(display);
-
-    v_box.add2(h_box);
-    window.add(v_box);
-
-    window.show_all_children();
-
-    return app->run(window);
+    return app->run(main_window);
 
     return 0;
 }

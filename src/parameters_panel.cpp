@@ -37,7 +37,7 @@ Parameters_panel::Parameters_panel(/* args */)
     _txt_width.set_text("1200");
     _txt_height.set_text("800");
     _txt_max_iter.set_text("50");
-    _txt_koppl.set_text("0.1");
+    _txt_koppl.set_text("0.0");
     _txt_gen_param.set_text("1.0");
     _txt_bailout.set_text("2.0");
     _txt_startpoint_real.set_text("0.0");

@@ -153,4 +153,24 @@ inline complex_type fractal_3(complex_type z, complex_type c, double gen)
     return (std::pow(z, 2) / (complex_type(2, 0) * z)) + c;
 }
 
+inline complex_type fractal_4(complex_type z, complex_type c, double gen)
+{
+    return ((std::pow(z * c, 2) + complex_type(1, 0)) / (z + c));
+}
+
+inline complex_type fractal_5(complex_type z, complex_type c, double gen)
+{
+    return (std::sqrt(std::pow(z * c, 2) + complex_type(1, 0)) / (z + c));
+}
+
+inline complex_type fractal_6(complex_type z, complex_type c, double gen)
+{
+    return (std::pow(z * std::conj(z), 2) + c);
+}
+
+inline complex_type fractal_7(complex_type z, complex_type c, double gen)
+{
+    return (std::sqrt(std::pow(z * std::conj(z), 2) + complex_type(1, 0)) + c);
+}
+
 #endif // !FRAC_FUN_GUARD_!1212

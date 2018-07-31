@@ -46,6 +46,7 @@ private:
   int _time_millis;
 
   double _calc_fraction = 0.0f;
+  bool _calc_in_progress = false;
 
 
 
@@ -66,6 +67,7 @@ public:
   ~Options_panel();
 
   void update_progress(double fraction);
+  void request_calculation();
 
 };
 

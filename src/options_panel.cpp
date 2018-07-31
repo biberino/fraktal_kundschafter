@@ -35,7 +35,7 @@ Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     add(_grid_main);
     show_all_children();
 
-    set_size_request(250, 150);
+    set_size_request(350, 150);
 
     //events
     _button_draw.signal_clicked()
@@ -110,10 +110,17 @@ void Options_panel::read_params()
 
 void Options_panel::on_button_draw_clicked()
 {
-    std::cout << "CLICKED!!!" << '\n';
-    _time.start();
-    _calc_thread = std::thread(&Options_panel::start_calculation, this);
-    _calc_thread.detach();
+    if (!_calc_in_progress)
+    {
+        _calc_in_progress = true;
+        _time.start();
+        _calc_thread = std::thread(&Options_panel::start_calculation, this);
+        _calc_thread.detach();
+    }
+    else
+    {
+        _info_panel.append_message("-->  WARNUNG:   Berechnung bereits im Gange\n");
+    }
 }
 
 void Options_panel::start_calculation()
@@ -167,6 +174,12 @@ void Options_panel::stop_time()
 void Options_panel::on_dispatcher_time_notify()
 {
 
-    std::string buffer = "Berechnung fertig: " + std::to_string((float)_time_millis / 1000.0f) + '\n';
+    std::string buffer = "-->  FERTIG:    " + std::to_string((float)_time_millis / 1000.0f) + " Sekunden" + '\n';
     _info_panel.append_message(buffer);
+    _calc_in_progress = false;
+}
+
+void Options_panel::request_calculation()
+{
+    on_button_draw_clicked();
 }

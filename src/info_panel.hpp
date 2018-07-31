@@ -12,6 +12,9 @@ class Info_panel : public Gtk::Grid
   protected:
     Gtk::Label _lbl_headline;
 
+
+    Gtk::ScrolledWindow _window;
+
     Glib::RefPtr<Gtk::TextBuffer> _ref_text_buffer;
     Gtk::TextView _view;
 
