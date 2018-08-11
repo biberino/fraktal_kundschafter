@@ -2,6 +2,7 @@
 #include <thread>
 //#include <SDL2/SDL.h>
 #include <gtkmm.h>
+#include <locale>
 #include "main_window.hpp"
 
 #include "iterations.hpp"
@@ -162,6 +163,76 @@ Combo_entries setup_combo_entries()
         "lifesmith",
         "z = sqrt((z* z*)^2 + 1)+c",
         fractal_7));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z)*abs(c)*(sqrt((z+c)^2 + 1) / abs(z+c)) + gen",
+        fractal_8));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z)*abs(c)*(sqrt((z+c)^2 + 1) / abs(z+c)) + c + gen",
+        fractal_9));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "fractal_10",
+        "z = abs(z*z)*abs(c)*(sqrt((z*z+c)^2 + 1) / abs(z*z+c)) + gen",
+        fractal_10));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z*z)*abs(c)*(sqrt((z*z+c)^2 + 1) / abs(z*z+c)) + c + gen",
+        fractal_11));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z*z*)*abs(c)*(sqrt((z*z*+c)^2 + 1) / abs(z*z*+c)) + gen",
+        fractal_12));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z*z*)*abs(c)*(sqrt((z*z*+c)^2 + 1) / abs(z*z*+c)) + c + gen",
+        fractal_13));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z^z*)*abs(c)*(sqrt((z^z*+c)^2 + 1) / abs(z^z*+c)) + gen",
+        fractal_14));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z^z*)*abs(c)*(sqrt((z^z*+c)^2 + 1) / abs(z^z*+c)) + c + gen",
+        fractal_15));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z^z)*abs(c)*(sqrt((z^z+c)^2 + 1) / abs(z^z+c)) + gen",
+        fractal_16));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z^z)*abs(c)*(sqrt((z^z+c)^2 + 1) / abs(z^z+c)) + c + gen",
+        fractal_17));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = (z+c)(z*c) + gen",
+        fractal_18));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mediant",
+        "z = z^2 med c",
+        fractal_19));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mediant",
+        "z = z*z* med c",
+        fractal_20));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mediant",
+        "z = (z*c) / (z med c) + gen",
+        fractal_21));
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
@@ -236,8 +307,12 @@ Combo_entries setup_combo_entries()
 
 int main(int argc, char *argv[])
 {
-    auto app = Gtk::Application::create(argc, argv, "biber.fractale.test");
+    auto app = Gtk::Application::create(argc, argv, "biber.fractale.cpp");
     Main_window main_window(setup_combo_entries());
+
+
+    //FIX LOCALE WEGEN , und . !
+    std::setlocale(LC_ALL, "C");
 
     return app->run(main_window);
 

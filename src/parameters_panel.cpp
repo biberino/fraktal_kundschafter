@@ -60,14 +60,15 @@ Parameters_Info Parameters_panel::get_data()
         info.koppl = std::stod(_txt_koppl.get_text());
         info.res.x = std::stod(_txt_width.get_text());
         info.res.y = std::stod(_txt_height.get_text());
-        info.gen_param = std::stof(_txt_gen_param.get_text());
-        info.bailout = std::stof(_txt_bailout.get_text());
+        info.gen_param = std::stod(_txt_gen_param.get_text());
+        info.bailout = std::stod(_txt_bailout.get_text());
         info.startpoint = complex_type(std::stod(_txt_startpoint_real.get_text()),
                                        std::stod(_txt_startpoint_imag.get_text()));
+        std::cout << "DEBUG " << info.koppl << '\n';
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << '\n';
+        std::cout << e.what() << '\n';
     }
     return info;
 }

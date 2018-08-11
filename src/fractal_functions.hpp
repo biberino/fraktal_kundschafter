@@ -3,6 +3,7 @@
 
 #include <complex>
 #include "types.hpp"
+#include "mediant.hpp"
 
 inline complex_type mandelbrot(complex_type z, complex_type c, double gen)
 {
@@ -171,6 +172,98 @@ inline complex_type fractal_6(complex_type z, complex_type c, double gen)
 inline complex_type fractal_7(complex_type z, complex_type c, double gen)
 {
     return (std::sqrt(std::pow(z * std::conj(z), 2) + complex_type(1, 0)) + c);
+}
+
+inline complex_type fractal_8(complex_type z, complex_type c, double gen)
+{
+    complex_type a = z;
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0);
+}
+
+inline complex_type fractal_9(complex_type z, complex_type c, double gen)
+{
+    complex_type a = z;
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) + c;
+}
+
+inline complex_type fractal_10(complex_type z, complex_type c, double gen)
+{
+    complex_type a = z * z;
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0);
+}
+
+inline complex_type fractal_11(complex_type z, complex_type c, double gen)
+{
+    complex_type a = z * z;
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) + c;
+}
+
+inline complex_type fractal_12(complex_type z, complex_type c, double gen)
+{
+    complex_type a = z * std::conj(z);
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0);
+}
+
+inline complex_type fractal_13(complex_type z, complex_type c, double gen)
+{
+    complex_type a = z * std::conj(z);
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) + c;
+}
+
+inline complex_type fractal_14(complex_type z, complex_type c, double gen)
+{
+    complex_type a = std::pow(z, std::conj(z));
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0);
+}
+
+inline complex_type fractal_15(complex_type z, complex_type c, double gen)
+{
+    complex_type a = std::pow(z, std::conj(z));
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) + c;
+}
+
+inline complex_type fractal_16(complex_type z, complex_type c, double gen)
+{
+    complex_type a = std::pow(z, z);
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0);
+}
+
+inline complex_type fractal_17(complex_type z, complex_type c, double gen)
+{
+    complex_type a = std::pow(z, z);
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) + c;
+}
+
+// ^mehr von der sorte ausprobieren
+
+inline complex_type fractal_18(complex_type z, complex_type c, double gen)
+{
+    return ((z + c) / (z * c) + complex_type(gen, 0));
+}
+
+inline complex_type fractal_19(complex_type z, complex_type c, double gen)
+{
+    return (calc_complex_mediant(std::pow(z, 2), c, 2147483647));
+}
+
+inline complex_type fractal_20(complex_type z, complex_type c, double gen)
+{
+    return (calc_complex_mediant(z * std::conj(z), c, 2147483647));
+}
+
+inline complex_type fractal_21(complex_type z, complex_type c, double gen)
+{
+    return ((z * c) / (calc_complex_mediant(z, c, 2147483647))) + complex_type(gen, 0);
 }
 
 #endif // !FRAC_FUN_GUARD_!1212

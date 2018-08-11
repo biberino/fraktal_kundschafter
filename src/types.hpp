@@ -19,6 +19,17 @@ struct Pixel
     int y;
 };
 
+struct Fraction
+{
+    long int z;
+    long int n;
+    Fraction(long int za, long int ne)
+    {
+        n = ne;
+        z = za;
+    }
+};
+
 struct Color
 {
     unsigned char r;
