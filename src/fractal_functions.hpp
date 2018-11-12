@@ -241,7 +241,7 @@ inline complex_type fractal_17(complex_type z, complex_type c, double gen)
 {
     complex_type a = std::pow(z, z);
     complex_type b = c;
-    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) + c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) + c + gen;
 }
 
 // ^mehr von der sorte ausprobieren
@@ -264,6 +264,13 @@ inline complex_type fractal_20(complex_type z, complex_type c, double gen)
 inline complex_type fractal_21(complex_type z, complex_type c, double gen)
 {
     return ((z * c) / (calc_complex_mediant(z, c, 2147483647))) + complex_type(gen, 0);
+}
+
+inline complex_type fractal_22(complex_type z, complex_type c, double gen)
+{
+    complex_type a = std::pow(z, z);
+    complex_type b = c;
+    return (std::abs(a) * std::abs(b) * ((std::sqrt(std::pow(a + b, 2) + complex_type(1, 0)) / (std::abs(a + b))))) + complex_type(gen, 0) - c + gen;
 }
 
 #endif // !FRAC_FUN_GUARD_!1212

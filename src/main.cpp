@@ -233,6 +233,11 @@ Combo_entries setup_combo_entries()
         "Mediant",
         "z = (z*c) / (z med c) + gen",
         fractal_21));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z^z)*abs(c)*(sqrt((z^z+c)^2 + 1) / abs(z^z+c)) - c + gen",
+        fractal_22));
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
@@ -309,7 +314,6 @@ int main(int argc, char *argv[])
 {
     auto app = Gtk::Application::create(argc, argv, "biber.fractale.cpp");
     Main_window main_window(setup_combo_entries());
-
 
     //FIX LOCALE WEGEN , und . !
     std::setlocale(LC_ALL, "C");
