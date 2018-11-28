@@ -238,6 +238,17 @@ Combo_entries setup_combo_entries()
         "hmm",
         "z = abs(z^z)*abs(c)*(sqrt((z^z+c)^2 + 1) / abs(z^z+c)) - c + gen",
         fractal_22));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z)*abs(c)*(sqrt((z+c)^2 + 1) / abs(z+c)) - c + gen",
+        fractal_23));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "hmm",
+        "z = abs(z^z*)*abs(c)*(sqrt((z^z*+c)^2 + 1) / abs(z^z*+c)) - c + gen",
+        fractal_24));
+
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
