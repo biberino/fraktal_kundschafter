@@ -249,6 +249,31 @@ Combo_entries setup_combo_entries()
         "z = abs(z^z*)*abs(c)*(sqrt((z^z*+c)^2 + 1) / abs(z^z*+c)) - c + gen",
         fractal_24));
 
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Gerade durch Parabel",
+        "z = (z+c)*gen-(z*c)",
+        fractal_25));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Gerade durch Parabel",
+        "z = (z*z+c)*gen-(z*z*c)",
+        fractal_26));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Gerade durch Parabel",
+        "z = (z*z*+c)*gen-(z*z* *c)",
+        fractal_27));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Gerade durch Parabel",
+        "z = (z^z*+c)*gen-(z^z* *c)",
+        fractal_28));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Kondensator Potenz",
+        "z = ((z^z* -1)  * c) / ((z^z* -1) +c) + gen",
+        fractal_28));
+
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
@@ -285,6 +310,11 @@ Combo_entries setup_combo_entries()
         "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht in der Menge + Prüft auf Zyklen",
         "Julia Iteration Zwilling Test keine Punktverfolgung",
         julia_iter_test_zw_no_tracking));
+
+    retVal.iter_entries.push_back(Combo_entry_iter(
+        "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht in der Menge + Prüft auf Zyklen",
+        "Hybrid Iteration Zwilling (Startwert + C sind vom Punkt abhängig), keine Punktverfolgung",
+        hybrid_iter_zw_no_tracking));
 
     /**Farben **/
 
