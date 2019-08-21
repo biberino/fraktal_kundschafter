@@ -49,6 +49,7 @@ public:
   ~Functions_panel();
 
   fractal_callback get_fractal_callback();
+  fractal_callback get_random_fractal_callback();
   iter_callback get_iter_callback();
   color_callback get_color_callback();
 };

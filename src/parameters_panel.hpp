@@ -27,7 +27,7 @@ private:
   Gtk::Label _lbl_startpoint_real;
   Gtk::Entry _txt_startpoint_real;
 
-   Gtk::Label _lbl_startpoint_imag;
+  Gtk::Label _lbl_startpoint_imag;
   Gtk::Entry _txt_startpoint_imag;
 
 public:

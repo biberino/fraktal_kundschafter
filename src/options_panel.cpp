@@ -4,7 +4,8 @@
 
 Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL),
-      _sep_2(Gtk::Orientation::ORIENTATION_HORIZONTAL)
+      _sep_2(Gtk::Orientation::ORIENTATION_HORIZONTAL),
+      _random_panel(this)
 {
 
     _dispatcher.connect(sigc::mem_fun(*this,
@@ -31,6 +32,7 @@ Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     _grid_main.attach(_sep_2, 0, 6, 2, 1);
     _grid_main.attach(_progress_bar, 0, 7, 2, 1);
     _grid_main.attach(_info_panel, 0, 8, 2, 1);
+    _grid_main.attach(_random_panel, 0, 9, 2, 1);
 
     add(_grid_main);
     show_all_children();
@@ -108,6 +110,26 @@ void Options_panel::read_params()
     }
 }
 
+void Options_panel::request_param_change(random_panel_change_data random_data)
+{
+    Parameters_Info p = _params_panel.get_data();
+    if (random_data.b_gen)
+        p.gen_param = random_data.gen;
+    if (random_data.b_koppl)
+        p.koppl = random_data.koppl;
+    if (random_data.b_start_real)
+        p.startpoint.real(random_data.start_real);
+    if (random_data.b_start_imag)
+        p.startpoint.imag(random_data.start_imag);
+
+    _params_panel.set_data(p);
+
+    if (random_data.b_formula)
+        _func_panel->get_random_fractal_callback(); //this sets the Combobox to a random
+                                                    //Function. It also returns the Function
+                                                    //but we can ignore this
+}
+
 void Options_panel::on_button_draw_clicked()
 {
     if (!_calc_in_progress)
@@ -127,7 +149,7 @@ void Options_panel::start_calculation()
 {
     read_params();
     _calc_handler->set_params(_calc_params);
-    _calc_handler->calculate(); //TODO: this blocks, maybe new thread + progressbar
+    _calc_handler->calculate(); //this blocks
     _display->set_data(_calc_params.resolution.x, _calc_params.resolution.y, _calc_handler->get_result_pointer());
     _display->queue_draw();
     stop_time();

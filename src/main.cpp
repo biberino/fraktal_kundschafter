@@ -359,6 +359,8 @@ int main(int argc, char *argv[])
     //FIX LOCALE WEGEN , und . !
     std::setlocale(LC_ALL, "C");
 
+    std::srand(std::time(nullptr));
+
     return app->run(main_window);
 
     return 0;

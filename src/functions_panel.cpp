@@ -114,6 +114,14 @@ fractal_callback Functions_panel::get_fractal_callback()
         }
     }
 }
+
+fractal_callback Functions_panel::get_random_fractal_callback()
+{
+    int random_int = std::rand() % vec_frac_callbacks.size();
+    _combo_fractal.set_active(random_int);
+    return vec_frac_callbacks[random_int];
+}
+
 iter_callback Functions_panel::get_iter_callback()
 {
     Gtk::TreeModel::iterator iter = _combo_iterations.get_active();

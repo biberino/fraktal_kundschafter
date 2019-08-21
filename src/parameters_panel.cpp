@@ -75,6 +75,7 @@ Parameters_Info Parameters_panel::get_data()
 void Parameters_panel::set_data(Parameters_Info info)
 {
     _txt_max_iter.set_text(std::to_string(info.max_iter));
+    std::cout << info.koppl << std::endl;
     _txt_koppl.set_text(std::to_string(info.koppl));
     _txt_width.set_text(std::to_string(info.res.x));
     _txt_height.set_text(std::to_string(info.res.y));

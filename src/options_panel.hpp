@@ -11,6 +11,7 @@
 #include "functions_panel.hpp"
 #include "parameters_panel.hpp"
 #include "info_panel.hpp"
+#include "random_panel.hpp"
 
 #include "time.hpp"
 
@@ -32,6 +33,7 @@ private:
   Parameters_panel _params_panel;
   Gtk::ProgressBar _progress_bar;
   Info_panel _info_panel;
+  Random_panel _random_panel;
 
   calculation_params _calc_params;
   Display *_display;
@@ -69,6 +71,7 @@ public:
   void update_progress(double fraction);
   void request_calculation();
 
+  void request_param_change(random_panel_change_data random_data);
 };
 
 #endif // !OPTIONS_PANEL_GUARD
