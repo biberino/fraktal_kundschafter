@@ -1,4 +1,5 @@
 #include "display.hpp"
+#include "options_panel.hpp"
 #include <iostream>
 
 Display::Display()
@@ -19,6 +20,11 @@ Display::~Display()
 {
 }
 
+void Display::assign_opt_panel(Options_panel *opt_panel)
+{
+    _opt_panel = opt_panel;
+}
+
 void Display::set_data(int width, int height, unsigned char *data)
 {
     _current_height = height;
@@ -29,20 +35,46 @@ void Display::set_data(int width, int height, unsigned char *data)
 
 bool Display::on_display_clicked(GdkEventButton *event)
 {
-    //std::cout << "HELLO CLICK" << event->x << " " << event->y << '\n';
-    _show_rectangle = true;
-    if (!_zoom_mode)
+    std::cout << "HELLO CLICK" << event->x << " " << event->y << '\n';
+    //std::cout << "Button: " << event->button << std::endl;
+
+    if (event->button == 1)
     {
-        _zoom_mode = true;
-        _mouse_pos_start.x = event->x;
-        _mouse_pos_start.y = event->y;
+        //left mouse button
+        _show_rectangle = true;
+        if (!_zoom_mode)
+        {
+            _zoom_mode = true;
+            _mouse_pos_start.x = event->x;
+            _mouse_pos_start.y = event->y;
+        }
+        else
+        {
+            _zoom_mode = false;
+            _mouse_pos_cursor.x = event->x;
+            _mouse_pos_cursor.y = event->y;
+        }
     }
-    else
+    else if (event->button == 3)
     {
-        _zoom_mode = false;
-        _mouse_pos_cursor.x = event->x;
-        _mouse_pos_cursor.y = event->y;
+
+        Pixel p;
+        p.x = event->x;
+        p.y = event->y;
+        if (_point_trail)
+        {
+            delete[] _point_trail->points;
+            delete _point_trail;
+        }
+        _point_trail = _opt_panel->request_point_trail(p);
+        _point_trail_active = true;
+        this->queue_draw();
     }
+}
+
+void Display::remove_point_trail()
+{
+    _point_trail_active = false;
 }
 
 bool Display::on_display_motion(GdkEventMotion *event)
@@ -72,9 +104,11 @@ bool Display::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
 
     **/
 
+    //draw image
     Gdk::Cairo::set_source_pixbuf(cr, _image, 0, 0);
     cr->paint();
 
+    //draw zoom rect
     if (_show_rectangle)
     {
         cr->set_source_rgb(0.8, 0.8, 0.8);
@@ -86,6 +120,19 @@ bool Display::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
     }
 
     //cr->fill();
+
+    //draw point trail
+    if (_point_trail_active)
+    {
+        cr->set_source_rgb(1.0, 0.0, 0.0);
+        cr->set_line_width(2);
+        cr->move_to(_point_trail->points[0].real(), _point_trail->points[0].imag());
+        for (size_t i = 1; i < _point_trail->valid_count; i++)
+        {
+            cr->line_to(_point_trail->points[i].real(), _point_trail->points[i].imag());
+        }
+        cr->stroke();
+    }
     return true;
 }
 

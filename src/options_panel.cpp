@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "options_panel.hpp"
+#include "conversions.hpp"
 
 Options_panel::Options_panel(Display *display, Functions_panel *func_panel)
     : _sep_1(Gtk::Orientation::ORIENTATION_HORIZONTAL),
@@ -130,6 +131,43 @@ void Options_panel::request_param_change(random_panel_change_data random_data)
                                                     //but we can ignore this
 }
 
+/**
+ * The Display has to delete the trail_buffer
+ */
+Point_trail * Options_panel::request_point_trail(Pixel p)
+{
+    read_params();
+    Parameters_Info params = _params_panel.get_data();
+    Axis_info a = _range_panel.get_data();
+
+    complex_type point = Pixel_to_Koord(p, a, params.res);
+
+    Point_trail *point_trail = new Point_trail;
+    point_trail->points = new complex_type[params.max_iter];
+    point_trail->valid_count = 0;
+
+    _func_panel->get_iter_callback()(point,
+                                     params.max_iter,
+                                     _func_panel->get_fractal_callback(),
+                                     _func_panel->get_color_callback(),
+                                     params.startpoint,
+                                     params.bailout * params.bailout,
+                                     params.koppl,
+                                     params.gen_param,
+                                     point_trail);
+
+    //trail_buffer now contains complex trail. We need to converts this for the display
+    for (size_t i = 0; i < point_trail->valid_count; i++)
+    {
+        Pixel buffer;
+        buffer = Koord_to_Pixel(point_trail->points[i], a, params.res);
+        point_trail->points[i] = complex_type((double)buffer.x, (double)buffer.y);
+
+    }
+
+    return point_trail;
+}
+
 void Options_panel::on_button_draw_clicked()
 {
     if (!_calc_in_progress)
@@ -151,6 +189,7 @@ void Options_panel::start_calculation()
     _calc_handler->set_params(_calc_params);
     _calc_handler->calculate(); //this blocks
     _display->set_data(_calc_params.resolution.x, _calc_params.resolution.y, _calc_handler->get_result_pointer());
+    _display->remove_point_trail();
     _display->queue_draw();
     stop_time();
 }

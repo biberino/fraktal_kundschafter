@@ -17,6 +17,13 @@ struct Pixel
 {
     int x;
     int y;
+    Pixel(const complex_type &c)
+    {
+        x = (int)c.real();
+        y = (int)c.imag();
+    }
+    Pixel()
+    {}
 };
 
 struct Fraction
@@ -75,12 +82,19 @@ struct Parameters_Info
     complex_type startpoint;
 };
 
+struct Point_trail
+{
+    complex_type *points;
+    int valid_count;
+};
+
 using color_callback = Color (*)(int, bool, int, complex_type, complex_type, int, double);
 using fractal_callback = complex_type (*)(complex_type, complex_type, double);
 using iter_callback = Color (*)(complex_type, int,
                                 fractal_callback, color_callback,
                                 complex_type,
-                                double, double, double);
+                                double, double, double,
+                                Point_trail *);
 
 struct Combo_entry_fractal
 {

@@ -72,6 +72,8 @@ public:
   void request_calculation();
 
   void request_param_change(random_panel_change_data random_data);
+
+  Point_trail * request_point_trail(Pixel p);
 };
 
 #endif // !OPTIONS_PANEL_GUARD

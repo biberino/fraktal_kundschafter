@@ -7,6 +7,7 @@ Main_window::Main_window(Combo_entries combo_entries) : _func_panel(combo_entrie
                                                         _h_box(Gtk::ORIENTATION_HORIZONTAL)
 {
     set_default_size(1600, 900);
+    _display.assign_opt_panel(&_opt_panel);
     set_title("Fraktal Kundschafter V 0.9.9");
     add_events(Gdk::KEY_PRESS_MASK);
     signal_key_press_event().connect(

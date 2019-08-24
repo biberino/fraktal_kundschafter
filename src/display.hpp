@@ -4,11 +4,16 @@
 #include <gtkmm.h>
 //#include <gdkmm/pixbuf.h>
 #include <gdkmm.h>
+#include "types.hpp"
+
+//forward declare
+class Options_panel;
 
 class Display : public Gtk::DrawingArea
 {
 public:
   Display();
+  void assign_opt_panel(Options_panel *opt_panel);
   ~Display();
 
   struct Rectangle
@@ -23,6 +28,7 @@ public:
   bool zoom_active();
   Rectangle get_zoom_rect();
   bool remove_zoom();
+  void remove_point_trail();
 
 protected:
   //Override default signal handler:
@@ -37,6 +43,7 @@ protected:
     double y;
   };
 
+
   Glib::RefPtr<Gdk::Pixbuf> _image;
   Glib::RefPtr<Gdk::Pixbuf> _zoom_box;
 
@@ -50,6 +57,9 @@ protected:
   int _current_height = 0;
 
 private:
+  Options_panel *_opt_panel;
+  bool _point_trail_active = false;
+  Point_trail *_point_trail = nullptr;
 };
 
 #endif // !DISPLAY_GUARD
