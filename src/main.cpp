@@ -26,7 +26,7 @@ Combo_entries setup_combo_entries()
 
     retVal.fractal_entries.push_back(Combo_entry_fractal(
         "Schädel",
-        "z = z ^ (*z) + gen",
+        "z = z ^ (*z) + c +gen",
         mandelbrot_konj_plus_gen));
 
     retVal.fractal_entries.push_back(Combo_entry_fractal(
@@ -273,6 +273,46 @@ Combo_entries setup_combo_entries()
         "Kondensator Potenz",
         "z = ((z^z* -1)  * c) / ((z^z* -1) +c) + gen",
         fractal_28));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mandelbrot hoch 3",
+        "z = z^3+c",
+        mandelbrot_3));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mandelbrot hoch 4",
+        "z = z^4+c",
+        mandelbrot_4));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mandelbrot hoch 5",
+        "z = z^5+c",
+        mandelbrot_5));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mandelbrot Auge",
+        "z = z*z *(z*) + c",
+        mandelbrot_konj_2));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mandelbrot Auge",
+        "z = z*(z*) *(z*) + c",
+        mandelbrot_konj_3));
+
+        retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mandelbrot Auge",
+        "z = z*z *(z*) - c",
+        mandelbrot_konj_4));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Mandelbrot Auge",
+        "z = z*(z*) *(z*) -c",
+        mandelbrot_konj_5));
+
+        retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Versuch",
+        "z = (z*z)^(z*) + c + gen",
+        versuch_1));
 
     /** Iterationen **/
 

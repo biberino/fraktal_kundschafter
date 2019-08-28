@@ -53,6 +53,12 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "algorithm": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "iterator": "cpp",
+        "map": "cpp",
+        "memory_resource": "cpp",
+        "random": "cpp",
+        "set": "cpp",
+        "string": "cpp"
     }
 }

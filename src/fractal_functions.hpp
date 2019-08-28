@@ -17,7 +17,7 @@ inline complex_type mandelbrot_konj(complex_type z, complex_type c, double gen)
 
 inline complex_type mandelbrot_konj_plus_gen(complex_type z, complex_type c, double gen)
 {
-    return (std::pow(z, std::conj(z)) + complex_type(gen, 0));
+    return (std::pow(z, std::conj(z)) + c + complex_type(gen, 0));
 }
 
 inline complex_type mandelbrot_3(complex_type z, complex_type c, double gen)
@@ -319,4 +319,40 @@ inline complex_type fractal_29(complex_type z, complex_type c, double gen)
 {
     return ((std::pow(z, std::conj(z)) - complex_type(1, 0)) * c) / ((std::pow(z, std::conj(z)) - complex_type(1, 0)) + c) + complex_type(gen, 0);
 }
+
+inline complex_type mandelbrot_4(complex_type z, complex_type c, double gen)
+{
+    return ((std::pow(z, 4)) + c);
+}
+
+inline complex_type mandelbrot_5(complex_type z, complex_type c, double gen)
+{
+    return ((std::pow(z, 5)) + c);
+}
+
+inline complex_type mandelbrot_konj_2(complex_type z, complex_type c, double gen)
+{
+    return ((z * z * std::conj(z) + c));
+}
+
+inline complex_type mandelbrot_konj_3(complex_type z, complex_type c, double gen)
+{
+    return ((z * std::conj(z) * std::conj(z) + c));
+}
+
+inline complex_type mandelbrot_konj_4(complex_type z, complex_type c, double gen)
+{
+    return ((z * z * std::conj(z) - c));
+}
+
+inline complex_type mandelbrot_konj_5(complex_type z, complex_type c, double gen)
+{
+    return ((z * std::conj(z) * std::conj(z) - c));
+}
+
+inline complex_type versuch_1(complex_type z, complex_type c, double gen)
+{
+    return (std::pow(z * z, std::conj(z)) + c + complex_type(gen, 0));
+}
+
 #endif // !FRAC_FUN_GUARD_!1212
