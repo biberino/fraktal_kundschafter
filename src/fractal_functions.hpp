@@ -355,4 +355,30 @@ inline complex_type versuch_1(complex_type z, complex_type c, double gen)
     return (std::pow(z * z, std::conj(z)) + c + complex_type(gen, 0));
 }
 
+inline complex_type binet(complex_type z, complex_type c, double gen)
+{
+    const double golden_ration = 1.16180339887;
+    return (((std::pow(golden_ration, z) - std::pow((-1 / golden_ration), z)) / std::sqrt(5)) + c);
+}
+
+inline complex_type binet_hoch_c(complex_type z, complex_type c, double gen)
+{
+    const double golden_ration = 1.16180339887;
+    return (((std::pow(golden_ration, c) - std::pow((-1 / golden_ration), c)) / std::sqrt(5)) + z);
+}
+
+inline complex_type binet_mixed_1(complex_type z, complex_type c, double gen)
+{
+    const double golden_ration = 1.16180339887;
+    return (((std::pow(golden_ration, z) - std::pow((-1 / golden_ration), c)) / std::sqrt(5)) + c);
+}
+
+inline complex_type binet_mixed_2(complex_type z, complex_type c, double gen)
+{
+    const double golden_ration = 1.16180339887;
+    return (((std::pow(golden_ration, c) - std::pow((-1 / golden_ration), z)) / std::sqrt(5)) + c);
+}
+
+
+
 #endif // !FRAC_FUN_GUARD_!1212

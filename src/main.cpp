@@ -299,7 +299,7 @@ Combo_entries setup_combo_entries()
         "z = z*(z*) *(z*) + c",
         mandelbrot_konj_3));
 
-        retVal.fractal_entries.push_back(Combo_entry_fractal(
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
         "Mandelbrot Auge",
         "z = z*z *(z*) - c",
         mandelbrot_konj_4));
@@ -309,10 +309,30 @@ Combo_entries setup_combo_entries()
         "z = z*(z*) *(z*) -c",
         mandelbrot_konj_5));
 
-        retVal.fractal_entries.push_back(Combo_entry_fractal(
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
         "Versuch",
         "z = (z*z)^(z*) + c + gen",
         versuch_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Binet mit hoch Z plus C",
+        "z = ((phi^z - (-1/phi)^z)/ sqrt(5))+c",
+        binet));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Binet mit hoch C plus Z",
+        "z = ((phi^c - (-1/phi)^c)/ sqrt(5))+z",
+        binet_hoch_c));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Binet gemischt 1",
+        "z = ((phi^z - (-1/phi)^c)/ sqrt(5))+c",
+        binet_mixed_1));
+
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Binet gemischt 2",
+        "z = ((phi^c - (-1/phi)^z)/ sqrt(5))+c",
+        binet_mixed_2));
 
     /** Iterationen **/
 
