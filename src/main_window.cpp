@@ -8,7 +8,7 @@ Main_window::Main_window(Combo_entries combo_entries) : _func_panel(combo_entrie
 {
     set_default_size(1600, 900);
     _display.assign_opt_panel(&_opt_panel);
-    set_title("Fraktal Kundschafter V 0.9.9");
+    set_title("Fraktal Kundschafter V 1.0.0");
     add_events(Gdk::KEY_PRESS_MASK);
     signal_key_press_event().connect(
         sigc::mem_fun(*this, &Main_window::on_main_window_key_press));

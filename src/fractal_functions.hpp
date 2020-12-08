@@ -379,6 +379,9 @@ inline complex_type binet_mixed_2(complex_type z, complex_type c, double gen)
     return (((std::pow(golden_ration, c) - std::pow((-1 / golden_ration), z)) / std::sqrt(5)) + c);
 }
 
-
+inline complex_type fractal_arts1(complex_type z, complex_type c, double gen)
+{
+    return ((c + z * z * c) / (complex_type(1, 0) - z * z * c));
+}
 
 #endif // !FRAC_FUN_GUARD_!1212

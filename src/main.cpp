@@ -334,6 +334,11 @@ Combo_entries setup_combo_entries()
         "z = ((phi^c - (-1/phi)^z)/ sqrt(5))+c",
         binet_mixed_2));
 
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Fractal Arts 1",
+        "z = (c+z*z*c)/(1-z*z*c)",
+        fractal_arts1));
+
     /** Iterationen **/
 
     retVal.iter_entries.push_back(Combo_entry_iter(
