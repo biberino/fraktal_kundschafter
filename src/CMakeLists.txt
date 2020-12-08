@@ -12,6 +12,6 @@ file(GLOB fraktal_SRC
 add_executable(fraktal_kundschafter ${fraktal_SRC})
 
 
-target_link_libraries(my_app PRIVATE Threads::Threads)
-target_link_libraries(example 
+target_link_libraries(fraktal_kundschafter PRIVATE Threads::Threads)
+target_link_libraries(fraktal_kundschafter 
     ${GTKMM_LIBRARIES}  )

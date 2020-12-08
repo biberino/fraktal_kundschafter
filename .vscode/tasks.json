@@ -1,19 +1,25 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
+            "label": "Build Project",
             "type": "shell",
-            "label": "g++ build active file",
-            "command": "/usr/bin/g++",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+            "command": "cd build && cmake .. && make",
+            "problemMatcher": [
+                "$gcc"
             ],
-            "options": {
-                "cwd": "/usr/bin"
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
             }
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

@@ -15,6 +15,8 @@ find_package(Threads REQUIRED)
 
 #gtkmm
 find_package(PkgConfig)
-pkg_check_modules(GTKMM gtkmm-2.4)
+pkg_check_modules(GTKMM gtkmm-3.0)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../bin")
 
 add_subdirectory(src)
