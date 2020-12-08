@@ -11,16 +11,10 @@ You'll need the C++ Gtk bindings:
 sudo apt install libgtkmm-3.0-dev 
 ```
 
-Then you can compile using ether make
+Then you can compile using cmake
 
 ```
-make
-```
-
-or buildfox and ninja
-
-```
-bf && ninja -t clean && ninja
+mkdir build && cd build && cmake .. && make
 ```
 
 This repo contains the latest prebuild binary for AMD64 architecture under bin/
