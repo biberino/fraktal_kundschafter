@@ -61,5 +61,6 @@
         "set": "cpp",
         "string": "cpp"
     },
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "jumpy.fontSize": -1
 }
