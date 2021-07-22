@@ -384,4 +384,9 @@ inline complex_type fractal_arts1(complex_type z, complex_type c, double gen)
     return ((c + z * z * c) / (complex_type(1, 0) - z * z * c));
 }
 
+inline complex_type z_power_c_1(complex_type z, complex_type c, double gen)
+{
+    return ((std::pow(z, c)) / (z * c)) + gen;
+}
+
 #endif // !FRAC_FUN_GUARD_!1212

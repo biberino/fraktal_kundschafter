@@ -338,6 +338,10 @@ Combo_entries setup_combo_entries()
         "Fractal Arts 1",
         "z = (c+z*z*c)/(1-z*z*c)",
         fractal_arts1));
+    retVal.fractal_entries.push_back(Combo_entry_fractal(
+        "Z hoch C 1",
+        "z = (z^c)/(z*c) + gen",
+        z_power_c_1));
 
     /** Iterationen **/
 
