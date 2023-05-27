@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread>
-//#include <SDL2/SDL.h>
+// #include <SDL2/SDL.h>
 #include <gtkmm.h>
 #include <locale>
 #include "main_window.hpp"
@@ -8,6 +8,9 @@
 #include "iterations.hpp"
 #include "fractal_functions.hpp"
 #include "colors.hpp"
+
+#include "boost/compute.hpp"
+namespace compute = boost::compute;
 
 Combo_entries setup_combo_entries()
 {
@@ -422,10 +425,52 @@ Combo_entries setup_combo_entries()
 
 int main(int argc, char *argv[])
 {
+    // TEST
+    // get default device and setup context
+    compute::device device = compute::system::default_device();
+    compute::context context(device);
+    compute::command_queue queue(context, device);
+
+    // generate random data on the host
+    std::vector<float> host_vector(5);
+    std::generate(host_vector.begin(), host_vector.end(), rand);
+    for (auto number : host_vector)
+    {
+        std::cout << number << "  ";
+    }
+    std::cout << std::endl;
+
+    // create a vector on the device
+    compute::vector<float> device_vector(host_vector.size(), context);
+
+    // transfer data from the host to the device
+    compute::copy(
+        host_vector.begin(), host_vector.end(), device_vector.begin(), queue);
+
+    // calculate the square-root of each element in-place
+    compute::transform(
+        device_vector.begin(),
+        device_vector.end(),
+        device_vector.begin(),
+        compute::sqrt<float>(),
+        queue);
+
+    // copy values back to the host
+    compute::copy(
+        device_vector.begin(), device_vector.end(), host_vector.begin(), queue);
+
+    for (auto number : host_vector)
+    {
+        std::cout << number << "  ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+    // ENDE TEST
     auto app = Gtk::Application::create(argc, argv, "biber.fractale.cpp");
     Main_window main_window(setup_combo_entries());
 
-    //FIX LOCALE WEGEN , und . !
+    // FIX LOCALE WEGEN , und . !
     std::setlocale(LC_ALL, "C");
 
     std::srand(std::time(nullptr));

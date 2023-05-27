@@ -2,11 +2,11 @@
 #define DISPLAY_GUARD_123
 
 #include <gtkmm.h>
-//#include <gdkmm/pixbuf.h>
+// #include <gdkmm/pixbuf.h>
 #include <gdkmm.h>
 #include "types.hpp"
 
-//forward declare
+// forward declare
 class Options_panel;
 
 class Display : public Gtk::DrawingArea
@@ -27,11 +27,11 @@ public:
   void set_data(int width, int height, unsigned char *data);
   bool zoom_active();
   Rectangle get_zoom_rect();
-  bool remove_zoom();
+  void remove_zoom();
   void remove_point_trail();
 
 protected:
-  //Override default signal handler:
+  // Override default signal handler:
   bool on_draw(const Cairo::RefPtr<Cairo::Context> &cr) override;
 
   bool on_display_clicked(GdkEventButton *event);
@@ -42,7 +42,6 @@ protected:
     double x;
     double y;
   };
-
 
   Glib::RefPtr<Gdk::Pixbuf> _image;
   Glib::RefPtr<Gdk::Pixbuf> _zoom_box;

@@ -36,11 +36,11 @@ void Display::set_data(int width, int height, unsigned char *data)
 bool Display::on_display_clicked(GdkEventButton *event)
 {
     std::cout << "HELLO CLICK" << event->x << " " << event->y << '\n';
-    //std::cout << "Button: " << event->button << std::endl;
+    // std::cout << "Button: " << event->button << std::endl;
 
     if (event->button == 1)
     {
-        //left mouse button
+        // left mouse button
         _show_rectangle = true;
         if (!_zoom_mode)
         {
@@ -70,6 +70,7 @@ bool Display::on_display_clicked(GdkEventButton *event)
         _point_trail_active = true;
         this->queue_draw();
     }
+    return true;
 }
 
 void Display::remove_point_trail()
@@ -79,13 +80,14 @@ void Display::remove_point_trail()
 
 bool Display::on_display_motion(GdkEventMotion *event)
 {
-    //std::cout << "MOTION" << event->x << " " << event->y << '\n';
+    // std::cout << "MOTION" << event->x << " " << event->y << '\n';
     if (_zoom_mode)
     {
         _mouse_pos_cursor.x = event->x;
         _mouse_pos_cursor.y = event->y;
         this->queue_draw();
     }
+    return true;
 }
 
 bool Display::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
@@ -104,11 +106,11 @@ bool Display::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
 
     **/
 
-    //draw image
+    // draw image
     Gdk::Cairo::set_source_pixbuf(cr, _image, 0, 0);
     cr->paint();
 
-    //draw zoom rect
+    // draw zoom rect
     if (_show_rectangle)
     {
         cr->set_source_rgb(0.8, 0.8, 0.8);
@@ -119,9 +121,9 @@ bool Display::on_draw(const Cairo::RefPtr<Cairo::Context> &cr)
         cr->stroke();
     }
 
-    //cr->fill();
+    // cr->fill();
 
-    //draw point trail
+    // draw point trail
     if (_point_trail_active)
     {
         cr->set_source_rgb(1.0, 0.0, 0.0);
@@ -153,7 +155,7 @@ Display::Rectangle Display::get_zoom_rect()
     return retVal;
 }
 
-bool Display::remove_zoom()
+void Display::remove_zoom()
 {
     _show_rectangle = false;
     _zoom_mode = false;
