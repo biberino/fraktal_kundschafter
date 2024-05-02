@@ -4,8 +4,10 @@
 #include <complex>
 #include <vector>
 #include <string>
+#include <boost/compute/types/complex.hpp>
 
-using complex_type = std::complex<double>;
+using datatype = float;
+using complex_type = std::complex<datatype>;
 
 struct Resolution_info
 {
@@ -23,7 +25,8 @@ struct Pixel
         y = (int)c.imag();
     }
     Pixel()
-    {}
+    {
+    }
 };
 
 struct Fraction
@@ -65,20 +68,20 @@ struct Color_info
 
 struct Axis_info
 {
-    double x_min;
-    double x_max;
+    datatype x_min;
+    datatype x_max;
 
-    double y_min;
-    double y_max;
+    datatype y_min;
+    datatype y_max;
 };
 
 struct Parameters_Info
 {
     int max_iter;
-    double koppl;
+    datatype koppl;
     Resolution_info res;
-    double gen_param;
-    double bailout;
+    datatype gen_param;
+    datatype bailout;
     complex_type startpoint;
 };
 
@@ -88,12 +91,12 @@ struct Point_trail
     int valid_count;
 };
 
-using color_callback = Color (*)(int, bool, int, complex_type, complex_type, int, double);
-using fractal_callback = complex_type (*)(complex_type, complex_type, double);
+using color_callback = Color (*)(int, bool, int, complex_type, complex_type, int, datatype);
+using fractal_callback = complex_type (*)(complex_type, complex_type, datatype);
 using iter_callback = Color (*)(complex_type, int,
                                 fractal_callback, color_callback,
                                 complex_type,
-                                double, double, double,
+                                datatype, datatype, datatype,
                                 Point_trail *);
 
 struct Combo_entry_fractal

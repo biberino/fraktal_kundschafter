@@ -35,13 +35,13 @@ Color color_table[] = {
     Color(0x9ACD32),
     Color(0x8B7500)};
 
-inline Color color_gradient_linear(double start, double end, double point)
+inline Color color_gradient_linear(datatype start, datatype end, datatype point)
 {
-    double distance = start + end;
-    double section_length = distance / 5.0f;
-    double section = (point - start) / section_length;
+    datatype distance = start + end;
+    datatype section_length = distance / 5.0f;
+    datatype section = (point - start) / section_length;
     int section_int = (int)section;
-    double section_percentage = section - (double)section_int;
+    datatype section_percentage = section - (datatype)section_int;
 
     if (section_int == 0)
     {
@@ -71,7 +71,7 @@ inline Color color_gradient_linear(double start, double end, double point)
 inline Color colorize(int jumps, bool in_set, int num_itertaions,
                       complex_type end_point1,
                       complex_type end_point2, int max_iter,
-                      double bailout)
+                      datatype bailout)
 {
 
     if (!in_set)
@@ -83,7 +83,7 @@ inline Color colorize(int jumps, bool in_set, int num_itertaions,
 
     if (jumps == 0)
     {
-        double dist = abs(end_point1);
+        datatype dist = abs(end_point1);
         //return Color(255, 0, 0); //test
         return Color((dist / 2.0f) * 255.0f, 40, 125);
     }
@@ -91,17 +91,17 @@ inline Color colorize(int jumps, bool in_set, int num_itertaions,
     if (jumps < MAX_COLORS)
     {
         Color temp = color_table[jumps];
-        //temp.b = ((double)num_itertaions / (double)max_iter) * 255.0f;
+        //temp.b = ((datatype)num_itertaions / (datatype)max_iter) * 255.0f;
         return temp;
     }
-    unsigned char grauwert = ((double)num_itertaions / (double)max_iter) * 255.0f;
+    unsigned char grauwert = ((datatype)num_itertaions / (datatype)max_iter) * 255.0f;
     return Color(0, 0, 255);
 }
 
 inline Color colorize_simple(int jumps, bool in_set, int num_itertaions,
                              complex_type end_point1,
                              complex_type end_point2, int max_iter,
-                             double bailout)
+                             datatype bailout)
 {
 
     if (!in_set)
@@ -115,7 +115,7 @@ inline Color colorize_simple(int jumps, bool in_set, int num_itertaions,
 inline Color colorize_distance_linear_gradient(int jumps, bool in_set, int num_itertaions,
                                                complex_type end_point1,
                                                complex_type end_point2, int max_iter,
-                                               double bailout)
+                                               datatype bailout)
 {
 
     if (!in_set)
@@ -131,7 +131,7 @@ inline Color colorize_distance_linear_gradient(int jumps, bool in_set, int num_i
 inline Color colorize_inner_dist_outer_table(int jumps, bool in_set, int num_itertaions,
                                              complex_type end_point1,
                                              complex_type end_point2, int max_iter,
-                                             double bailout)
+                                             datatype bailout)
 {
 
     if (!in_set)
@@ -151,7 +151,7 @@ inline Color colorize_inner_dist_outer_table(int jumps, bool in_set, int num_ite
 inline Color colorize_inner_dist_outer_gradient(int jumps, bool in_set, int num_itertaions,
                                                 complex_type end_point1,
                                                 complex_type end_point2, int max_iter,
-                                                double bailout)
+                                                datatype bailout)
 {
 
     if (!in_set)
@@ -172,7 +172,7 @@ inline Color colorize_inner_dist_outer_gradient(int jumps, bool in_set, int num_
 inline Color colorize_inner_angle_outer_gradient(int jumps, bool in_set, int num_itertaions,
                                                 complex_type end_point1,
                                                 complex_type end_point2, int max_iter,
-                                                double bailout)
+                                                datatype bailout)
 {
 
     if (!in_set)

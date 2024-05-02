@@ -18,18 +18,18 @@ struct Fractal_params
   Workload_distributor *work_dis;
   Result_store *store;
   int max_iter;
-  double koppl;
-  double bailout_squared;
+  datatype koppl;
+  datatype bailout_squared;
   complex_type julia_const;
-  double gen_param;
+  datatype gen_param;
 };
 
 class Fractal_worker
 {
 private:
   Fractal_params _params;
-  double _x_diff;
-  double _y_diff;
+  datatype _x_diff;
+  datatype _y_diff;
 
 public:
   std::vector<Color_info> _col_info_vec;

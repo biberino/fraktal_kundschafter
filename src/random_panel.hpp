@@ -10,10 +10,10 @@ class Options_panel;
 //The values the Random Fractal Generator is able to change
 struct random_panel_change_data
 {
-    double koppl;
-    double gen;
-    double start_real;
-    double start_imag;
+    datatype koppl;
+    datatype gen;
+    datatype start_real;
+    datatype start_imag;
     bool b_koppl;
     bool b_gen;
     bool b_start_real;
@@ -52,7 +52,7 @@ private:
     Gtk::Label _lbl_start_real_stroke;
     Gtk::Label _lbl_start_imag_stroke;
 
-    double random_between(double min, double max);
+    datatype random_between(datatype min, datatype max);
 
 public:
     Random_panel(Options_panel *parent);

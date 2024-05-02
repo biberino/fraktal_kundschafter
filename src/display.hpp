@@ -18,10 +18,10 @@ public:
 
   struct Rectangle
   {
-    double x1;
-    double y1;
-    double x2;
-    double y2;
+    datatype x1;
+    datatype y1;
+    datatype x2;
+    datatype y2;
   };
 
   void set_data(int width, int height, unsigned char *data);
@@ -39,8 +39,8 @@ protected:
 
   struct Mouse_pos
   {
-    double x;
-    double y;
+    datatype x;
+    datatype y;
   };
 
   Glib::RefPtr<Gdk::Pixbuf> _image;

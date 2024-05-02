@@ -83,9 +83,9 @@ Random_panel::Random_panel(Options_panel *parent)
     show_all_children();
 }
 
-double Random_panel::random_between(double min, double max)
+datatype Random_panel::random_between(datatype min, datatype max)
 {
-    double r = min + static_cast<double>((double)rand()) / (static_cast<double>((double)RAND_MAX / (max - min)));
+    datatype r = min + static_cast<datatype>((datatype)rand()) / (static_cast<datatype>((datatype)RAND_MAX / (max - min)));
     return r;
 }
 
@@ -96,14 +96,14 @@ Random_panel::~Random_panel()
 void Random_panel::on_button_draw_clicked()
 {
 
-    double koppl_min;
-    double koppl_max;
-    double gen_min;
-    double gen_max;
-    double start_real_min;
-    double start_real_max;
-    double start_imag_min;
-    double start_imag_max;
+    datatype koppl_min;
+    datatype koppl_max;
+    datatype gen_min;
+    datatype gen_max;
+    datatype start_real_min;
+    datatype start_real_max;
+    datatype start_imag_min;
+    datatype start_imag_max;
 
     try
     {

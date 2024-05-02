@@ -47,7 +47,7 @@ private:
   time_meassure _time;
   int _time_millis;
 
-  double _calc_fraction = 0.0f;
+  datatype _calc_fraction = 0.0f;
   bool _calc_in_progress = false;
 
 
@@ -68,7 +68,7 @@ public:
   Options_panel(Display *display, Functions_panel *func_panel);
   ~Options_panel();
 
-  void update_progress(double fraction);
+  void update_progress(datatype fraction);
   void request_calculation();
 
   void request_param_change(random_panel_change_data random_data);

@@ -8,20 +8,20 @@
 
 struct calculation_params
 {
-    double x_min;
-    double x_max;
-    double y_min;
-    double y_max;
+    datatype x_min;
+    datatype x_max;
+    datatype y_min;
+    datatype y_max;
     iter_callback iteration_function;
     Resolution_info resolution;
     int work_size;
     int max_iter;
-    double koppl;
-    double bailout_squared;
+    datatype koppl;
+    datatype bailout_squared;
     fractal_callback fractal_function;
     color_callback color_function;
     complex_type julia_const;
-    double gen_param;
+    datatype gen_param;
 };
 
 class Options_panel;

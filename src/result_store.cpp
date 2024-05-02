@@ -44,8 +44,8 @@ void Result_store::put(std::vector<Color_info> *vec)
         //std::cout << "Inserted:" << el.pixel.x << "|" << el.pixel.y << " --> " << el.color.dummy << '\n';
     }
     _num_points_calculated += vec->size();
-    double fraction_buffer = (double)_num_points_calculated /
-                             (double)_num_points;
+    datatype fraction_buffer = (datatype)_num_points_calculated /
+                             (datatype)_num_points;
 
     std::string buffer = std::to_string(fraction_buffer);
     buffer += '\n';

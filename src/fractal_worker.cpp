@@ -17,8 +17,8 @@ void Fractal_worker::set_params(Fractal_params params)
 
 inline complex_type Fractal_worker::XY_to_complex(Pixel pixel)
 {
-    double ca = (double)pixel.x * (_x_diff / (double)_params.res.x) + (double)_params.axis.x_min;
-    double cb = ((-1.0f * (double)pixel.y + (double)_params.res.y) * ((double)_y_diff / (double)_params.res.y) + (double)_params.axis.y_min);
+    datatype ca = (datatype)pixel.x * (_x_diff / (datatype)_params.res.x) + (datatype)_params.axis.x_min;
+    datatype cb = ((-1.0f * (datatype)pixel.y + (datatype)_params.res.y) * ((datatype)_y_diff / (datatype)_params.res.y) + (datatype)_params.axis.y_min);
 
     return complex_type(ca, cb);
 }

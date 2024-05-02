@@ -58,7 +58,7 @@ Axis_info Range_panel::get_data()
 
 void Range_panel::set_data(Axis_info axis)
 {
-    int max_digits = std::numeric_limits<double>::max_digits10;
+    int max_digits = std::numeric_limits<datatype>::max_digits10;
     std::stringstream stream;
     stream << std::fixed << std::setprecision(max_digits) << axis.x_min;
 
