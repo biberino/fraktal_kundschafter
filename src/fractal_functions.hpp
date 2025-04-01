@@ -389,4 +389,32 @@ inline complex_type z_power_c_1(complex_type z, complex_type c, datatype gen)
     return ((std::pow(z, c)) / (z * c)) + gen;
 }
 
+inline complex_type x_gespiegelt(complex_type z, complex_type c, datatype gen) {
+  complex_type z2(-1, -1);
+  return ((z * z * z2 + c));
+}
+
+inline complex_type x_gespiegelt2(complex_type z, complex_type c,
+                                  datatype gen) {
+  complex_type z2(-1 * z.real(), z.imag());
+  return ((z * z2 + c));
+}
+
+inline complex_type x_gespiegelt3(complex_type z, complex_type c,
+                                  datatype gen) {
+  complex_type z2(std::abs(z), std::abs(z));
+  return ((z * std::conj(z) * z2 + c));
+}
+
+inline complex_type burning_ship(complex_type z, complex_type c, datatype gen) {
+  complex_type z1(std::abs(z.real()), std::abs(z.imag()));
+  return ((z1 * z1 + c));
+}
+
+inline complex_type burning_ship2(complex_type z, complex_type c,
+                                  datatype gen) {
+  complex_type z1(z.real(), std::abs(z.imag()));
+  return ((z1 * z1 + c));
+}
+
 #endif // !FRAC_FUN_GUARD_!1212

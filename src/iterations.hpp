@@ -486,4 +486,129 @@ inline Color test_iter_zw_no_tracking(complex_type point, int max_iter,
   return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
 }
 
+inline Color zukunfts_iter_zw_no_tracking(complex_type point, int max_iter,
+                                          fractal_callback fractal_func,
+                                          color_callback color_func,
+                                          complex_type julia_const,
+                                          datatype bailout_squared,
+                                          datatype koppl, datatype gen_param,
+                                          Point_trail *point_path_buffer) {
+
+  complex_type z1 = julia_const;
+  complex_type z2 = julia_const;
+
+  complex_type c = point;
+
+  if (point_path_buffer) {
+    point_path_buffer->valid_count = 0;
+  }
+
+  for (size_t j = 0; j < max_iter; j++) {
+    // tracking
+    if (point_path_buffer) {
+      point_path_buffer->points[j] = complex_type(z1);
+      point_path_buffer->valid_count++;
+    }
+
+    complex_type buffer(z1);
+    z1 = fractal_func(z1, c, gen_param);
+
+    z2 = fractal_func(z2, c, gen_param) - (z1 * koppl);
+    z1 = z1 + (z2 * koppl);
+
+    if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) >
+         bailout_squared) &&
+        (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) >
+         bailout_squared)) {
+      return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
+    }
+  }
+
+  return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
+}
+
+inline Color vertausch_1_iter_zw_no_tracking(complex_type point, int max_iter,
+                                             fractal_callback fractal_func,
+                                             color_callback color_func,
+                                             complex_type julia_const,
+                                             datatype bailout_squared,
+                                             datatype koppl, datatype gen_param,
+                                             Point_trail *point_path_buffer) {
+
+  complex_type z1 = julia_const;
+  complex_type z2 = julia_const;
+
+  complex_type c = point;
+
+  if (point_path_buffer) {
+    point_path_buffer->valid_count = 0;
+  }
+
+  for (size_t j = 0; j < max_iter; j++) {
+    // tracking
+    if (point_path_buffer) {
+      point_path_buffer->points[j] = complex_type(z1);
+      point_path_buffer->valid_count++;
+    }
+
+    complex_type buffer(z1);
+    z1 = fractal_func(z1, c, gen_param) +
+         (fractal_func(c, z2, gen_param) * koppl);
+
+    z2 = fractal_func(z2, c, gen_param) -
+         (fractal_func(c, buffer, gen_param) * koppl);
+
+    if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) >
+         bailout_squared) &&
+        (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) >
+         bailout_squared)) {
+      return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
+    }
+  }
+
+  return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
+}
+
+inline Color normal_iter_zw_no_tracking_age(complex_type point, int max_iter,
+                                            fractal_callback fractal_func,
+                                            color_callback color_func,
+                                            complex_type julia_const,
+                                            datatype bailout_squared,
+                                            datatype koppl, datatype gen_param,
+                                            Point_trail *point_path_buffer) {
+
+  complex_type z1 = julia_const;
+  complex_type z2 = julia_const;
+
+  complex_type c = point;
+
+  if (point_path_buffer) {
+    point_path_buffer->valid_count = 0;
+  }
+
+  for (size_t j = 0; j < max_iter; j++) {
+    // tracking
+    if (point_path_buffer) {
+      point_path_buffer->points[j] = complex_type(z1);
+      point_path_buffer->valid_count++;
+    }
+
+    complex_type buffer(z1);
+    float age = float(j) / float(max_iter);
+    datatype gen_param_age = gen_param * age;
+    z1 = fractal_func(z1, c, gen_param_age) + (z2 * koppl);
+
+    z2 = fractal_func(z2, c, gen_param_age) - (buffer * koppl);
+
+    if ((((z1.real() * z1.real()) + (z1.imag() * z1.imag())) >
+         bailout_squared) &&
+        (((z2.real() * z2.real()) + (z2.imag() * z2.imag())) >
+         bailout_squared)) {
+      return color_func(0, false, j, z1, z2, max_iter, sqrt(bailout_squared));
+    }
+  }
+
+  return color_func(0, true, max_iter, z1, z2, max_iter, sqrt(bailout_squared));
+}
+
 #endif // !FRAC_FUN_GUARD_!1212

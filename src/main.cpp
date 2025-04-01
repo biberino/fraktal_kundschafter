@@ -235,6 +235,17 @@ Combo_entries setup_combo_entries() {
   retVal.fractal_entries.push_back(
       Combo_entry_fractal("Z hoch C 1", "z = (z^c)/(z*c) + gen", z_power_c_1));
 
+  retVal.fractal_entries.push_back(Combo_entry_fractal(
+      "test Spiegelung x Achse", "test Spiegelung x", x_gespiegelt));
+  retVal.fractal_entries.push_back(Combo_entry_fractal(
+      "test Spiegelung x Achse 2", "test Spiegelung x", x_gespiegelt2));
+  retVal.fractal_entries.push_back(Combo_entry_fractal(
+      "test Spiegelung x Achse 3", "test Spiegelung x", x_gespiegelt3));
+  retVal.fractal_entries.push_back(
+      Combo_entry_fractal("Burning Ship", "Burning Ship x", burning_ship));
+  retVal.fractal_entries.push_back(
+      Combo_entry_fractal("Burning Ship2", "Burning Ship x 2", burning_ship2));
+
   /** Iterationen **/
 
   retVal.iter_entries.push_back(Combo_entry_iter(
@@ -295,6 +306,26 @@ Combo_entries setup_combo_entries() {
       "??? Iteration Zwilling (Startwert + C sind vom Punkt abhängig), "
       "keine Punktverfolgung",
       test_iter_zw_no_tracking));
+
+  retVal.iter_entries.push_back(Combo_entry_iter(
+      "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht "
+      "in der Menge + Prüft auf Zyklen",
+      "Zukunfts Iteration Zwilling (Startwert + C sind vom Punkt abhängig), "
+      "keine Punktverfolgung",
+      zukunfts_iter_zw_no_tracking));
+
+  retVal.iter_entries.push_back(Combo_entry_iter(
+      "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht "
+      "in der Menge + Prüft auf Zyklen",
+      "Vertausch 1 Iteration Zwilling (Startwert + C sind vom Punkt abhängig), "
+      "keine Punktverfolgung",
+      vertausch_1_iter_zw_no_tracking));
+
+  retVal.iter_entries.push_back(Combo_entry_iter(
+      "Prüft ob Punkt Teil der Menge + Prüft Anzahl Interationen falls nicht "
+      "in der Menge + Prüft auf Zyklen",
+      "Standard Iteration ZWILLING ohne Punktverfolgung mit Alter Gen Param",
+      normal_iter_zw_no_tracking_age));
 
   /**Farben **/
 
